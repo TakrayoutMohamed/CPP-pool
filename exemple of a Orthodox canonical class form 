@@ -1,0 +1,34 @@
+1  #ifndef FOO_H  
+  2  #define FOO_H  
+  3  
+  4  class Foo {  
+  5    public:  
+  6      Foo(int i = 0);  
+  7      virtual ~Foo();  
+  8      Foo(Foo& rhs);  
+  9      Foo& operator=(Foo& rhs);
+  10      int getVal(); 
+  11      void setVal(int i); 
+  12    private: 
+  13      int* iptr; 
+  14  }; 
+  15  #endif
+
+
+
+  1  #include "foo.h"  
+  2  
+  3  Foo::Foo(int i){ iptr = new int(i); }  
+  4  
+  5  Foo::~Foo(){ delete iptr; }  
+  6  
+  7  Foo::Foo(Foo& rhs){ iptr = new int(*(rhs.iptr)); }  
+  8  
+  9  Foo& Foo::operator=(Foo& rhs){ 
+  10    *iptr = *(rhs.iptr); 
+  11    return *this; 
+  12  } 
+  13 
+  14  int Foo::getVal(){ return *iptr;} 
+  15 
+  16  void Foo::setVal(int i){ *iptr = i; }
