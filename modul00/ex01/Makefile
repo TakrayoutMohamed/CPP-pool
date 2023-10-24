@@ -1,19 +1,19 @@
 NAME=contact
-CC= c++ 
+CPP= c++ 
 CPPFLAGS=-Wall -Wextra -Werror -std=c++98
 RM=rm -f
-SRC =  PhoneBook.cpp Contact.cpp
+SRC =  PhoneBook.cpp Contact.cpp main.cpp
 	
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		@$(CC) $(CPPFLAGS) -o $@ $(OBJ)
+		@$(CPP) $(CPPFLAGS) -o $@ $(OBJ)
 		@echo "the files has ben archived successfully"
 
-%.o: %.c libft.h
-		@$(CC) $(CPPFLAGS) -o $@ -c $< 
+%.o: %.cpp PhoneBook.hpp Contact.hpp
+		@$(CPP) $(CPPFLAGS) -o $@ -c $< 
 		@echo "the file $@ has been created from $<"
 
 
