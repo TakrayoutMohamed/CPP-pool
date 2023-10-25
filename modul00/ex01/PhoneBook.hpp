@@ -14,6 +14,8 @@ class PhoneBook
 		void	addContact(void);
 		void	searchContactById(void);
 		void	printPhoneBook();
+	private:
+		int	getIdToSearch(void);
 };
 
 #endif

@@ -3,31 +3,30 @@
 
 Contact::Contact(/* args */)
 {
-	std::cout << "Constructor called Contact" << std::endl;
 	return ; 
 }
 
 Contact::~Contact()
 {
-	std::cout << "Destructor called Contact" << std::endl;
 	return ; 
 }
 
-void	printChars(std::string str)
+void	Contact::printChars(std::string str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	if (str.length() < 10)
 	{
-		while (i < 10 - (int)str.length())
+		while (j < 10 - (int)str.length())
 		{
 			std::cout << " ";
-			i++;
+			j++;
 		}
 	}
-	i = 0;
-	while (i < 10)
+	while (i + j < 10)
 	{
 		if (i < 9 && str[i])
 			std::cout << str[i];
@@ -61,27 +60,27 @@ int	Contact::getId()
 
 std::string	Contact::getFirstName()
 {
-	return (firstName);
+	return (this->firstName);
 }
 
 std::string	Contact::getLastName()
 {
-	return (lastName);
+	return (this->lastName);
 }
 
 std::string	Contact::getNickName()
 {
-	return (nickName);
+	return (this->nickName);
 }
 
 std::string	Contact::getPhoneNumber()
 {
-	return (phoneNumber);
+	return (this->phoneNumber);
 }
 
 std::string	Contact::getDarkSecret()
 {
-	return (darkSecret);
+	return (this->darkSecret);
 }
 
 /*setters*/

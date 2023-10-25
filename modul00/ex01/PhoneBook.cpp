@@ -5,13 +5,11 @@ PhoneBook::PhoneBook(/* args */)
 {
 	this->contactNbr = 0;
 	this->id = 0;
-	std::cout << "Constructor called PhoneBook" << std::endl;
 	return ;
 }
 
 PhoneBook::~PhoneBook()
 {
-	std::cout << "Destructor called PhoneBook" << std::endl;
 	return ;
 }
 
@@ -21,7 +19,7 @@ void	PhoneBook::printPhoneBook()
 
 	i = 0;
 	std::cout << "-------------------------PHONE BOOK----------"<<std::endl;
-	std::cout << "|index     |FirstName |LastName  |NickName  |"<<std::endl;
+	std::cout << "|     Index| FirstName|  LastName|  NickName|"<<std::endl;
 	std::cout << "---------------------------------------------"<<std::endl;
 	while (i < this->contactNbr)
 	{
@@ -31,12 +29,24 @@ void	PhoneBook::printPhoneBook()
 	std::cout << "---------------------------------------------"<<std::endl;
 }
 
-void	PhoneBook::searchContactById(void)
+int	PhoneBook::getIdToSearch(void)
 {
-	int id;
+	std::string	nbr;
 
 	std::cout << "Enter the id of the contact to search ."<< std::endl;
-	std::cin >> id;
+	std::getline(std::cin, nbr);
+	if (std::cin.eof())
+		exit(1);
+	if (nbr.length() > 1)
+		return (-1);
+	return (nbr[0] - '0');
+}
+
+void	PhoneBook::searchContactById(void)
+{
+	int	id;
+	
+	id = PhoneBook::getIdToSearch();
 	std::cout << "-----------------------------------------------------"<<std::endl;
 	if (id - 1 < this->contactNbr && id - 1 >= 0)
 	{
@@ -61,14 +71,6 @@ void PhoneBook::addContact(void)
 	std::string	str;
 
 	this->id = this->id % 8;
-	if (this->contactNbr > this->id)
-	{
-		this->contacts[this->id].setFirstName("");
-		this->contacts[this->id].setLastName("");
-		this->contacts[this->id].setNickName("");
-		this->contacts[this->id].setPhoneNumber("");
-		this->contacts[this->id].setDarkSecret("");
-	}
 	if (this->contactNbr < 8)
 		this->contactNbr++;
 	this->contacts[this->id].setId(this->id + 1);

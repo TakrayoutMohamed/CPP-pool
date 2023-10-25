@@ -35,5 +35,7 @@ class Contact
 
 		void		setDarkSecret(std::string darkSecret);
 		std::string	getDarkSecret(void);
+	private:
+		void	printChars(std::string str);
 };
 #endif
