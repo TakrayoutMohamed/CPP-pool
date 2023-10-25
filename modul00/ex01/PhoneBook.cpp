@@ -31,23 +31,29 @@ void	PhoneBook::printPhoneBook()
 	std::cout << "---------------------------------------------"<<std::endl;
 }
 
-void	PhoneBook::searchContactById(int id)
+void	PhoneBook::searchContactById(void)
 {
-	if (id < this->contactNbr)
+	int id;
+
+	std::cout << "Enter the id of the contact to search ."<< std::endl;
+	std::cin >> id;
+	std::cout << "-----------------------------------------------------"<<std::endl;
+	if (id - 1 < this->contactNbr && id - 1 >= 0)
 	{
-		std::cout << "First Name    : " << this->contacts[id].getFirstName();
+		std::cout << "First Name    : " << this->contacts[id - 1].getFirstName();
 		std::cout << std::endl;
-		std::cout << "Last Name     : " << this->contacts[id].getLastName();
+		std::cout << "Last Name     : " << this->contacts[id - 1].getLastName();
 		std::cout << std::endl;
-		std::cout << "Nick Name     : " << this->contacts[id].getNickName();
+		std::cout << "Nick Name     : " << this->contacts[id - 1].getNickName();
 		std::cout << std::endl;
-		std::cout << "Phone Number  : " << this->contacts[id].getPhoneNumber();
+		std::cout << "Phone Number  : " << this->contacts[id - 1].getPhoneNumber();
 		std::cout << std::endl;
-		std::cout << "Dark Secret   : " << this->contacts[id].getDarkSecret();
+		std::cout << "Dark Secret   : " << this->contacts[id - 1].getDarkSecret();
 		std::cout << std::endl;
 	}
 	else
-		std::cout << "index you entered not available ."<< std::endl;
+		std::cout << "=> Error : Index you entered not available ." << std::endl;
+	std::cout << "-----------------------------------------------------"<<std::endl;
 }
 
 void PhoneBook::addContact(void)
@@ -68,33 +74,33 @@ void PhoneBook::addContact(void)
 	this->contacts[this->id].setId(this->id + 1);
 	do {
 		std::cout << "Enter the first Name    : ";
-		std::getline (std::cin, str);
+		if (!std::getline (std::cin, str))
+			exit(0);
 		this->contacts[this->id].setFirstName(str);
-		std::cout << std::endl;
 	} while (str.empty());
 	do {
 		std::cout << "Enter the last Name     : ";
-		std::getline (std::cin, str);
+		if (!std::getline (std::cin, str))
+			exit(0);
 		this->contacts[this->id].setLastName(str);
-		std::cout << std::endl;
 	} while (str.empty());
 	do {
 		std::cout << "Enter the Nick Name     : ";
-		std::getline (std::cin, str);
+		if (!std::getline (std::cin, str))
+			exit(0);
 		this->contacts[this->id].setNickName(str);
-		std::cout << std::endl;
 	} while (str.empty());
 	do {
 		std::cout << "Enter the Phone Number  : ";
-		std::getline (std::cin, str);
+		if (!std::getline (std::cin, str))
+			exit(0);
 		this->contacts[this->id].setPhoneNumber(str);
-		std::cout << std::endl;
 	} while (str.empty());
 	do {
 		std::cout << "Enter the darkest Secret: ";
-		std::getline (std::cin, str);
+		if (!std::getline (std::cin, str))
+			exit(0);
 		this->contacts[this->id].setDarkSecret(str);
-		std::cout << std::endl;
 	} while (str.empty());
 	this->id++;
 }

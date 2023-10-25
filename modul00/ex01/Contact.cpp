@@ -18,6 +18,15 @@ void	printChars(std::string str)
 	int	i;
 
 	i = 0;
+	if (str.length() < 10)
+	{
+		while (i < 10 - (int)str.length())
+		{
+			std::cout << " ";
+			i++;
+		}
+	}
+	i = 0;
 	while (i < 10)
 	{
 		if (i < 9 && str[i])
@@ -27,8 +36,6 @@ void	printChars(std::string str)
 			std::cout << ".";
 			break ;
 		}
-		else
-			std::cout << " ";
 		i++;
 	}
 	std::cout << "|";
@@ -37,7 +44,7 @@ void	printChars(std::string str)
 void	Contact::printContact(void)
 {
 	std::cout << "|";
-	std::cout << getId() << "         ";
+	std::cout << "         " << getId();
 	std::cout << "|";
 	printChars(getFirstName());
 	printChars(getLastName());

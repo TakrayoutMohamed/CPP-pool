@@ -12,7 +12,7 @@ class PhoneBook
 		PhoneBook(/* args */);
 		~PhoneBook();
 		void	addContact(void);
-		void	searchContactById(int id);
+		void	searchContactById(void);
 		void	printPhoneBook();
 };
 
