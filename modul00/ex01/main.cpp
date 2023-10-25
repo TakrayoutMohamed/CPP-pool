@@ -16,19 +16,26 @@ int	main(void)
 		std::cout << "ADD: to save a new contact" << std::endl;
 		std::cout << "SEARCH: display a specific contact" << std::endl;
 		std::cout << "EXIT: to exit the program" << std::endl;
-		std::getline(std::cin, command);
-		if (command.compare("ADD") == 0)
+		if (!std::getline(std::cin, command))
+			exit(0);
+		if (command == "ADD")
 		{
-			phoneBook.addContact(id % 8);//still need to work on this add contact 
-			id++;
+			phoneBook.addContact();
 		}
 		else if (command.compare("SEARCH") == 0)
 		{ 
 			phoneBook.printPhoneBook();
+			std::cout << "Enter the id of the contact to search ."<< std::endl;
+			std::cin >> id;
+			phoneBook.searchContactById(id);
 		}
 		else if (command.compare("EXIT") == 0)
 		{
 			break ;
+		}
+		else
+		{
+			std::cout << "the program accept only : ADD, SEARCH, EXIT"<< std::endl;
 		}
 
 	} while (1);

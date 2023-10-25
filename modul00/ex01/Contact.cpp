@@ -42,8 +42,6 @@ void	Contact::printContact(void)
 	printChars(getFirstName());
 	printChars(getLastName());
 	printChars(getNickName());
-	printChars(getPhoneNumber());
-	printChars(getDarkSecret());
 	std::cout << std::endl;
 }
 

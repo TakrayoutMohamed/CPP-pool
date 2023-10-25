@@ -1,6 +1,7 @@
 #ifndef CONTACT_HPP
 # define CONTACT_HPP
 # include <string>
+
 class Contact
 {
 	private:
@@ -14,6 +15,7 @@ class Contact
 	public:
 		Contact();
 		~Contact();
+
 		void		printContact(void);
 
 		void		setId(int id);
@@ -30,7 +32,7 @@ class Contact
 
 		void		setPhoneNumber(std::string phoneNumber);
 		std::string	getPhoneNumber(void);
-		
+
 		void		setDarkSecret(std::string darkSecret);
 		std::string	getDarkSecret(void);
 };
