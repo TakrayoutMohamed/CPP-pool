@@ -16,6 +16,7 @@ Zombie::~Zombie()
 /*print the name of the zombie followed by a message*/
 void	Zombie::announce(void)
 {
+
 	if (this->getName().length() <= 0)
 		return ;
 	std::cout << this->getName();
@@ -33,5 +34,7 @@ std::string	Zombie::getName(void)
 
 void	Zombie::setName(std::string name)
 {
+	if (name.length() == 0 || name.compare("") == 0)
+		this->name = "";
 	this->name = name;
 }
