@@ -10,6 +10,8 @@ int	main(void)
 	// atexit(foo);
 	Zombie	*zombies;
 	zombies = zombieHorde(4, "zombie11");
+	if (zombies == NULL)
+		return (EXIT_FAILURE);
 	zombies[0].announce();
 	zombies[1].announce();
 	zombies[2].announce();
