@@ -8,9 +8,9 @@ class Weapon
         /* data */
         std::string type;
     public:
-        Weapon(/* args */);
+        Weapon(std::string type);
         ~Weapon();
-        std::string &getType(void);
+        const std::string &getType(void);
         void    setType(std::string newType);
 };
 

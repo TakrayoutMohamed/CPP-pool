@@ -1,16 +1,19 @@
 #include "Weapon.hpp"
 
-Weapon::Weapon(/* args */)
-{
+ Weapon::Weapon(std::string type) : type(type)
+ {
+    // std::cout << "Constructor the takes a parameter was called with value :";
+    // std::cout << str << std::endl;
+    // setType(type);
     return ;
-}
+ }
 
 Weapon::~Weapon()
 {
     return ;
 }
 
-std::string &Weapon::getType(void)
+const std::string &Weapon::getType(void)
 {
     return (this->type);
 }
