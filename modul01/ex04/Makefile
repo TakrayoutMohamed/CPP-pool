@@ -2,7 +2,7 @@ NAME=no_sed
 CPP= c++ 
 CPPFLAGS=-Wall -Wextra -Werror -std=c++98
 RM=rm -f
-SRC =  File.cpp main.cpp
+SRC =  main.cpp
 	
 OBJ = $(SRC:.cpp=.o)
 
