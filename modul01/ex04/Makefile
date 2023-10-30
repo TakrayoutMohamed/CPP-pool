@@ -12,8 +12,8 @@ $(NAME): $(OBJ)
 		@$(CPP) $(CPPFLAGS) -o $@ $(OBJ)
 		@echo "the files has ben archived successfully"
 
-%.o: %.cpp File.hpp
-		@$(CPP) $(CPPFLAGS) -o $@ -c $< 
+%.o: %.cpp
+		@$(CPP) $(CPPFLAGS) -o $@ -c $<
 		@echo "the file $@ has been created from $<"
 
 
