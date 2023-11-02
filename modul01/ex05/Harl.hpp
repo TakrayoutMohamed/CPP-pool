@@ -1,5 +1,7 @@
-#include <iostream>
-#include <cstring>
+#ifndef HARL_HPP
+# define HARL_HPP
+# include <iostream>
+# include <cstring>
 
 class Harl
 {
@@ -13,4 +15,4 @@ class Harl
 		~Harl();
 		void complain(std::string level = "");
 };
-
+#endif
