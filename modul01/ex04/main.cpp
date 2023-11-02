@@ -58,6 +58,8 @@ int    main(int argc, char **argv)
         std::cout << std::endl;
         return (EXIT_FAILURE);
     }
+    if (strToReplace.compare("") == 0)
+        return (0);
     while (std::getline(currentFile, line))
     {
         newFile << replace_text(line, strToReplace, strReplace);
