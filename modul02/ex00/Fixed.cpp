@@ -1,7 +1,5 @@
 #include "./Fixed.hpp"
 
-const int Fixed::nbrFractional = 8;
-
 Fixed::Fixed(/* args */)
 {
 	this->fixedPoint = 0;
@@ -17,6 +15,8 @@ Fixed::~Fixed()
 Fixed::Fixed(Fixed& copyObj)
 {
 	std::cout << "Copy constructor called" << std::endl;
+	if (&copyObj == this)
+		return ;
 	*this = copyObj;
 }
 
@@ -24,7 +24,8 @@ Fixed::Fixed(Fixed& copyObj)
 Fixed   &Fixed::operator= (Fixed& fxd)
 {
 	std::cout << "Copy assignment operator called"<< std::endl;
-	this->fixedPoint = fxd.getRawBits();
+	if (&fxd != this)
+		this->fixedPoint = fxd.getRawBits();
 	return (*this);
 }
 
