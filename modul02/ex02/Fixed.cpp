@@ -35,30 +35,33 @@ Fixed   &Fixed::operator= (const Fixed& fxd)
 	return (*this);
 }
 
-Fixed   Fixed::operator+ (const Fixed& fxd)
+Fixed   Fixed::operator+ (const Fixed& fxd) const
 {
 	float temp;
 	temp = this->toFloat() + fxd.toFloat();
 	return (Fixed(temp));
 }
 
-Fixed   Fixed::operator- (const Fixed& fxd)
+Fixed   Fixed::operator- (const Fixed& fxd) const
 {
 	float	temp;
 	temp = this->toFloat() - fxd.toFloat();
 	return (Fixed(temp));
 }
 
-Fixed   Fixed::operator/ (const Fixed& fxd)
+Fixed   Fixed::operator/ (const Fixed& fxd) const
 {
 	float	temp;
 	if (!fxd.fixedPoint)
+	{
+		std::cout << "NAN";
 		exit (EXIT_FAILURE);
+	}
 	temp = this->toFloat() / fxd.toFloat();
 	return (Fixed(temp));
 }
 
-Fixed   Fixed::operator* (const Fixed& fxd)
+Fixed   Fixed::operator* (const Fixed& fxd) const
 {
 	float	temp;
 	temp = this->toFloat() * fxd.toFloat();
@@ -137,21 +140,25 @@ bool	Fixed::operator!= (const Fixed& fxd)
 
 Fixed	&Fixed::min(Fixed& fxd1, Fixed& fxd2)
 {
+	std::cout << "min ";
 	return ((fxd1 < fxd2) ? (Fixed &)fxd1 : (Fixed &)fxd2);
 }
 
 Fixed	&Fixed::min(const Fixed& fxd1, const Fixed& fxd2)
 {
+	std::cout << "min const ";
 	return (((Fixed)fxd1 < (Fixed)fxd2) ? (Fixed &)fxd1 : (Fixed &)fxd2);
 }
 
 Fixed	&Fixed::max(Fixed& fxd1,Fixed& fxd2)
 {
+	// std::cout << "max ";
 	return ((fxd1 < fxd2) ? (Fixed &)fxd2 : (Fixed &)fxd1);
 }
 
 Fixed	&Fixed::max(const Fixed& fxd1, const Fixed& fxd2)
 {
+	// std::cout << "max const ";
 	return (((Fixed)fxd1 < (Fixed)fxd2) ? (Fixed &)fxd2 : (Fixed &)fxd1);
 }
 

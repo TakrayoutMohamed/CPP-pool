@@ -15,10 +15,10 @@ class Fixed
 		Fixed(const float);
 		Fixed(const Fixed&);
 		Fixed	&operator= (const Fixed&);
-		Fixed	operator+ (const Fixed&);
-		Fixed	operator- (const Fixed&);
-		Fixed	operator/ (const Fixed&);
-		Fixed	operator* (const Fixed&);
+		Fixed	operator+ (const Fixed&) const;
+		Fixed	operator- (const Fixed&) const;
+		Fixed	operator/ (const Fixed&) const;
+		Fixed	operator* (const Fixed&) const;
 		Fixed	operator++ (int);
 		Fixed	operator++ (void);
 		Fixed	operator-- (int);
