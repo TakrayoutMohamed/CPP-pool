@@ -90,7 +90,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 	// if i repair my self i lose one energie point => me.energyPoints = me.energiePoints - 1
 	if (getHitPoints() > 0 && getEnergyPionts() > 0)
 	{
-		std::cout << "ClapTrap "<< getName() <<" repaired him self by adding "<< amount \ 
+		std::cout << "ClapTrap "<< getName() <<" repaired him self by adding "<< amount \
 		<< " of hit points "<< std::endl;
 		setEnergyPoints(getEnergyPionts() - 1);
 		setHitPionts(getHitPoints() + amount);
