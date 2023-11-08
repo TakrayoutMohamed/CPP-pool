@@ -30,11 +30,6 @@ class ClapTrap
 		const int &getHitPoints(void) const;
 		const int &getEnergyPionts(void) const;
 		const int &getAttackDamage(void) const;
-		/*setters */
-		void	setName(std::string const);
-		void	setHitPionts(int const);
-		void	setEnergyPoints(int const);
-		void	setAttackDamage(int const);
 };
 
 #endif

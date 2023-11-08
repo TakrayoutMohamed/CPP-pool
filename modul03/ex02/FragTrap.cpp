@@ -16,10 +16,10 @@ const FragTrap &FragTrap::operator=(const FragTrap& obj)
 {
 	std::cout << "Copy assignement operator to assign FragTrap Named ["<< obj.getName() \
 	<<"] to FragTrap Named [" << this->getName() <<"]" << std::endl;
-	this->setName(obj.getName());
-    this->setHitPionts(obj.getHitPoints());
-	this->setEnergyPoints(obj.getEnergyPionts());
-	this->setAttackDamage(obj.getAttackDamage());
+	_name = obj._name;
+	_hitPoints = obj._hitPoints;
+	_energyPoints = obj._energyPoints;
+	_attackDamage = obj._attackDamage;
 	return (*this);
 }
 /*copy constructor*/

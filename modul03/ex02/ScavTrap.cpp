@@ -16,10 +16,10 @@ const ScavTrap &ScavTrap::operator=(const ScavTrap& obj)
 {
 	std::cout << "Copy assignement operator to assign ScavTrap Named ["<< obj.getName() \
 	<<"] to ScavTrap Named [" << this->getName() <<"]" << std::endl;
-	this->setName(obj.getName());
-    this->setHitPionts(obj.getHitPoints());
-	this->setEnergyPoints(obj.getEnergyPionts());
-	this->setAttackDamage(obj.getAttackDamage());
+	_name = obj._name;
+	_hitPoints = obj._hitPoints;
+	_energyPoints = obj._energyPoints;
+	_attackDamage = obj._attackDamage;
 	return (*this);
 }
 /*copy constructor*/
@@ -57,7 +57,7 @@ void ScavTrap::attack(const std::string& target)
 	{
 		std::cout << "ScaveTrap "<< getName() <<" attacks "<< target <<", causing "<< getAttackDamage()\
 		<< " points of damage!" << std::endl;
-		setEnergyPoints(getEnergyPionts() - 1);
+		_energyPoints = _energyPoints - 1;
 	}
 	else
 	{
