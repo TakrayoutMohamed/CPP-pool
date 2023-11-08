@@ -14,8 +14,8 @@ ClapTrap::ClapTrap(/* args */)
 /*copy assignement operator*/
 const ClapTrap &ClapTrap::operator=(const ClapTrap& obj)
 {
-	std::cout << "Copy assignement operator to assign ClapTrap Named ["<< obj.getName() <<"] to ";
-	std::cout << "ClapTrap Named [" << this->getName() <<"]" << std::endl;
+	std::cout << "Copy assignement operator to assign ClapTrap Named ["<< obj.getName() \
+	<<"] to ClapTrap Named [" << this->getName() <<"]" << std::endl;
 	this->_name = obj._name;
 	this->_energyPoints = obj._energyPoints;
 	this->_hitPoints = obj._hitPoints;
@@ -53,9 +53,8 @@ void ClapTrap::attack(const std::string& target)
 		//=>his.hitPoints = his.hitPoints - me.attackDamage
 	if (getHitPoints() > 0 && getEnergyPionts() > 0)
 	{
-		std::cout << "ClapTrap "<< getName() <<" attacks "<< target;
-		std::cout << ", causing "<< getAttackDamage();
-		std::cout << " points of damage!" << std::endl;
+		std::cout << "ClapTrap "<< getName() <<" attacks "<< target <<", causing "<< getAttackDamage()\
+		<< " points of damage!" << std::endl;
 		setEnergyPoints(getEnergyPionts() - 1);
 	}
 	else
@@ -72,9 +71,8 @@ void ClapTrap::takeDamage(unsigned int amount)
 	// if i have been attacked i take damage of amount => me.hitPoints = me.hitPoints - amount 
 	if (getHitPoints() > 0 && getEnergyPionts() > 0)
 	{
-		std::cout << "ClapTrap "<< getName() <<" has been attacked ";
-		std::cout << ", causing lose of "<< amount;
-		std::cout << " points of damage!" << std::endl;
+		std::cout << "ClapTrap "<< getName() <<" has been attacked " << ", causing lose of "<< amount\
+		<< " points of damage!" << std::endl;
 		setHitPionts(getHitPoints() - amount);
 	}
 	else
@@ -92,8 +90,8 @@ void ClapTrap::beRepaired(unsigned int amount)
 	// if i repair my self i lose one energie point => me.energyPoints = me.energiePoints - 1
 	if (getHitPoints() > 0 && getEnergyPionts() > 0)
 	{
-		std::cout << "ClapTrap "<< getName() <<" repaired him self by adding "<< amount;
-		std::cout << " of hit points "<< std::endl;
+		std::cout << "ClapTrap "<< getName() <<" repaired him self by adding "<< amount \ 
+		<< " of hit points "<< std::endl;
 		setEnergyPoints(getEnergyPionts() - 1);
 		setHitPionts(getHitPoints() + amount);
 	}
