@@ -14,6 +14,8 @@ ClapTrap::ClapTrap(/* args */)
 /*copy assignement operator*/
 const ClapTrap &ClapTrap::operator=(const ClapTrap& obj)
 {
+	std::cout << "Copy assignement operator to assign ClapTrap Named ["<< obj.getName() <<"] to ";
+	std::cout << "ClapTrap Named [" << this->getName() <<"]" << std::endl;
 	this->_name = obj._name;
 	this->_energyPoints = obj._energyPoints;
 	this->_hitPoints = obj._hitPoints;
@@ -23,8 +25,8 @@ const ClapTrap &ClapTrap::operator=(const ClapTrap& obj)
 /*copy constructor*/
 ClapTrap::ClapTrap(const ClapTrap &obj)
 {
-	std::cout << "Copy constructor for ClapTrap Named ["<< this->getName() <<"] called" << std::endl;
 	*this = obj;
+	std::cout << "Copy constructor for ClapTrap Named ["<< this->getName() <<"] called" << std::endl;
 }
 /*Destructor*/
 ClapTrap::~ClapTrap()
@@ -35,11 +37,11 @@ ClapTrap::~ClapTrap()
 /*Constructor that takes a string as parameter*/
 ClapTrap::ClapTrap(const std::string &name)
 {
-	std::cout << "Constructor(name) for ClapTrap Named ["<< this->getName() <<"] called" << std::endl;
 	this->setHitPionts(10);
 	this->setEnergyPoints(10);
 	this->setAttackDamage(0);
 	this->setName(name);
+	std::cout << "Constructor(name) for ClapTrap Named ["<< this->getName() <<"] called" << std::endl;
 }
 
 
