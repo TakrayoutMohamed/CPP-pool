@@ -5,10 +5,10 @@
 /*Default constructor*/
 FragTrap::FragTrap(/* args */) : ClapTrap()
 {
-	this->setHitPionts(100);
-	this->setEnergyPoints(100);
-	this->setAttackDamage(30);
-	this->setName("");
+	this->_hitPoints = 100;
+	this->_energyPoints = 100;
+	this->_attackDamage = 30;
+	this->_name = "";
 	std::cout << "Default constructor for FragTrap Named ["<< this->getName() <<"] called" << std::endl;
 }
 /*copy assignement operator*/
@@ -37,10 +37,10 @@ FragTrap::~FragTrap()
 /*Constructor that takes a string as parameter*/
 FragTrap::FragTrap(const std::string &name)  : ClapTrap(name)
 {
-	this->setHitPionts(100);
-	this->setEnergyPoints(100);
-	this->setAttackDamage(30);
-	this->setName(name);
+	this->_hitPoints = 100;
+	this->_energyPoints = 100;
+	this->_attackDamage = 30;
+	this->_name = name;
 	std::cout << "Constructor(name) for FragTrap Named ["<< this->getName() <<"] called" << std::endl;
 }
 

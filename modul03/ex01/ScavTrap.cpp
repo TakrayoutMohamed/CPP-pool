@@ -5,10 +5,10 @@
 /*Default constructor*/
 ScavTrap::ScavTrap(/* args */) : ClapTrap()
 {
-	this->setHitPionts(100);
-	this->setEnergyPoints(50);
-	this->setAttackDamage(20);
-	this->setName("");
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
+	this->_name = "";
 	std::cout << "Default constructor for ScavTrap Named ["<< this->getName() <<"] called" << std::endl;
 }
 /*copy assignement operator*/
@@ -37,10 +37,10 @@ ScavTrap::~ScavTrap()
 /*Constructor that takes a string as parameter*/
 ScavTrap::ScavTrap(const std::string &name)  : ClapTrap(name)
 {
-	this->setHitPionts(100);
-	this->setEnergyPoints(50);
-	this->setAttackDamage(20);
-	this->setName(name);
+	this->_hitPoints = 100;
+	this->_energyPoints = 50;
+	this->_attackDamage = 20;
+	this->_name = name;
 	std::cout << "Constructor(name) for ScavTrap Named ["<< this->getName() <<"] called" << std::endl;
 }
 
