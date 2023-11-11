@@ -27,12 +27,6 @@ Animal::~Animal()
     std::cout << "Destructor of the Animal class" << std::endl;
 }
 
-/*member functions*/
-void Animal::makeSound(void) const
-{
-    std::cout << "{animal sound}" << std::endl;
-}
-
 /*getters*/
 
 std::string Animal::getType(void) const
