@@ -2,21 +2,24 @@
 
 Dog::Dog(/* args */) : Animal()
 {
-    this->type = "Dog";
     std::cout << "Default constructor of the Dog class" << std::endl;
+    this->type = "Dog";
 }
 
 const Dog& Dog::operator=(const Dog& obj)
 {
-    this->type = obj.type;
     std::cout << "Copy assignment operator of the Dog class" << std::endl;
+    if (this == &obj)
+        return (*this);
+    this->type = obj.type;
     return (*this);
 }
 
 Dog::Dog(const Dog& obj) : Animal(obj)
 {
-    *this = obj;
     std::cout << "Copy constructor of the Dog class" << std::endl;
+    if (this != &obj)
+        *this = obj;
 }
 
 Dog::~Dog()

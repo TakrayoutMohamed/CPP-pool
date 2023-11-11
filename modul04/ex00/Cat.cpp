@@ -2,21 +2,24 @@
 
 Cat::Cat(/* args */) : Animal()
 {
-    this->type = "Cat";
     std::cout << "Default constructor of the Cat class" << std::endl;
+    this->type = "Cat";
 }
 
 const Cat& Cat::operator=(const Cat& obj)
 {
-    this->type = obj.type;
+    if (this == &obj)
+        return (*this);
     std::cout << "Copy assignment operator of the Cat class" << std::endl;
+    this->type = obj.type;
     return (*this);
 }
 
 Cat::Cat(const Cat& obj) : Animal(obj)
 {
-    *this = obj;
     std::cout << "Copy constructor of the Cat class" << std::endl;
+    if (this != &obj)
+        *this = obj;
 }
 
 Cat::~Cat()

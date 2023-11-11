@@ -3,19 +3,22 @@
 /*orthodox canonical form*/
 WrongAnimal::WrongAnimal(/* args */)
 {
-    this->type = "WrongAnimal";
     std::cout << "Default constructor of the WrongAnimal class" << std::endl;
+    this->type = "WrongAnimal";
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal& obj)
 {
-    *this = obj;
     std::cout << "Copy constructor of the WrongAnimal class" << std::endl;
+    if (this != &obj)
+		*this = obj;
 }
 const WrongAnimal& WrongAnimal::operator=(const WrongAnimal& obj)
 {
-    this->type = obj.type;
     std::cout << "Copy assignment operator of the WrongAnimal class" << std::endl;
+    if (this == &obj)
+		return (*this);
+    this->type = obj.type;
     return (*this);
 }
 
