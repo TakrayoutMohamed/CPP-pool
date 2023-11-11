@@ -4,35 +4,35 @@
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
+// void foo(void)
+// {
+//     system("leaks brain");
+// }
 int main(void)
 {
-    /*
-    *
-    *
-    * 
-    * i SHOULD ADD THE MAKE FILE FLAGS BEFOR PUSH
-    * 
-    * 
-    * */
-    const Animal* meta = new Animal();
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
-    std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << " " << std::endl;
-    i->makeSound(); //will output the cat sound!
-    j->makeSound();
-    meta->makeSound();
-    delete i;
-    delete j;
-    delete meta;
+    // atexit(foo);
+    Animal *animals[4];
+
+    animals[0] = new Cat();
+    animals[1] = new Cat();
+    animals[2] = new Dog();
+    animals[3] = new Dog();
 
     std::cout << "***************************************"<< std::endl;
-    const WrongAnimal* meta1 = new WrongAnimal();
-    const WrongAnimal* i1 = new WrongCat();
-    std::cout << i1->getType() << " " << std::endl;
-    i1->makeSound(); //will output the cat sound!
-    meta1->makeSound();
-    delete i1;
-    delete meta1;
+    for (int k = 0; k < 4; k++)
+    {
+        std::cout << "type of the animal nbr "<< k + 1 << "= "<< animals[k]->getType() << std::endl;
+    }
+    
+    std::cout << "***************************************"<< std::endl;
+    for (int k = 0; k < 4; k++)
+    {
+        delete animals[k];
+    }
+    std::cout << "***************************************"<< std::endl;
+    {
+        Animal meta;
+        std::cout << "the type of the animal meta is : " << meta.getType() << std::endl;
+    }
     return 0;
 }

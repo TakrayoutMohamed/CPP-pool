@@ -1,8 +1,8 @@
-NAME=animals
+NAME=brain
 CPP= c++ 
 CPPFLAGS=-Wall -Wextra -Werror -std=c++98
 RM=rm -f
-SRC = Animal.cpp Dog.cpp Cat.cpp  main.cpp WrongCat.cpp WrongAnimal.cpp
+SRC = Animal.cpp Dog.cpp Cat.cpp  main.cpp WrongCat.cpp WrongAnimal.cpp Brain.cpp
 	
 OBJ = $(SRC:.cpp=.o)
 
@@ -12,7 +12,7 @@ $(NAME): $(OBJ)
 		@$(CPP) $(CPPFLAGS) -o $@ $(OBJ)
 		@echo "the files has ben archived successfully"
 
-%.o: %.cpp Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
+%.o: %.cpp Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp Brain.hpp
 		@$(CPP) $(CPPFLAGS) -o $@ -c $<
 		@echo "the file $@ has been created from $<"
 
