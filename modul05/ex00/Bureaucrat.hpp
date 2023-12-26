@@ -2,7 +2,7 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
-#include <exception>
+// #include <exception>
 
 class Bureaucrat
 {
@@ -23,6 +23,16 @@ class Bureaucrat
 		/*getters*/
 		std::string	getName(void) const;
 		int	getGrade(void) const;
+		class GradeTooLowException : public std::exception
+		{
+			public:
+				const char *what() const throw();
+		} GradeTooLowException;
+		class GradeTooHighException : public std::exception
+		{
+			public:
+				const char *what() const throw();
+		} GradeTooHighException;
 		/*member functions*/
 		void	incrementGrade(void);
 		void	decrementGrade(void);

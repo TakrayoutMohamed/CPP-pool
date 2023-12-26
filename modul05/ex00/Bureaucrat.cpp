@@ -1,6 +1,6 @@
 #include "./Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(/* args */) : _name("Bureacrat default"), _grade(150)
+Bureaucrat::Bureaucrat(/* args */) : _name("BureacratDefaultName"), _grade(150)
 {
 	std::cout << "{Default constructor for the bureaucrat named ["<< getName() << "] has been called}" << std::endl;
 }
@@ -23,6 +23,10 @@ const Bureaucrat &Bureaucrat::operator=(const Bureaucrat &obj)
 Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade)
 {
 	std::cout << "{constructor for [" << getName() << "] has been called with grade " << getGrade() <<"}" << std::endl;
+	if (grade < 1)
+		throw Bureaucrat::GradeTooHighException;
+	else if (grade > 150)
+		throw Bureaucrat::GradeTooLowException;
 }
 
 Bureaucrat::~Bureaucrat()
@@ -47,14 +51,13 @@ void	Bureaucrat::incrementGrade(void)
 	try
 	{
 		if (getGrade() <= 1)
-			throw(this);
+			throw GradeTooHighException;
 		this->_grade = getGrade() - 1;
 	}
-	catch(const std::exception& e)
+	catch(std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	
 }
 
 void	Bureaucrat::decrementGrade(void)
@@ -62,14 +65,23 @@ void	Bureaucrat::decrementGrade(void)
 	try
 	{
 		if (getGrade() >= 150)
-			throw(this);
+			throw GradeTooLowException;
 		this->_grade = getGrade() + 1;
 	}
-	catch(const std::exception& e)
+	catch(std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 	
+}
+
+const char *Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return ("GradeTooHigh");
+}
+const char *Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return ("GradeTooLow");
 }
 
 /*here overloading the output stream*/
@@ -78,4 +90,5 @@ std::ostream	&operator<< (std::ostream& os, const Bureaucrat& obj)
 	os << obj.getName() << ", bureaucrat grade " << obj.getGrade() << std::endl;
 	return (os);
 }
+
 
