@@ -2,32 +2,20 @@
 
 int main(void)
 {
-	try 
+	try
 	{
-		Bureaucrat	a("negro", 3);
-		Bureaucrat b(a);
-		Bureaucrat c("test bureau", 145);
-		c = a;
-		Bureaucrat d("alvares", 1);
-
-		std::cout << a;
-		std::cout << b;
-		std::cout << c;
-		std::cout << a;
-		std::cout << d;
-		std::cout << "++++++++++++++++++++++decrement++++" << std::endl;
-		d.decrementGrade();
-		std::cout << d;
-		std::cout << "+++++++++++++++++++++increment+++++" << std::endl;
-		d.incrementGrade();
-		std::cout << d;
-		std::cout << "+++++++++++++++++++++increment+++++" << std::endl;
-		d.incrementGrade();
-		std::cout << d;
+		Bureaucrat Bloc0;
+		Bureaucrat Bloc1("Governor", 145);
+		std::cout << Bloc1;
+		Bloc1.decrementGrade();
+		std::cout << Bloc1;
+		Bloc1.incrementGrade();
+		std::cout << Bloc1;
+		Bloc0.decrementGrade();
 	}
-	catch (std::exception &e)
+	catch(std::exception &gradeExceptions)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << gradeExceptions.what() << std::endl;
 	}
 	return (0);
 }
