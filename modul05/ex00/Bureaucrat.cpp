@@ -49,7 +49,6 @@ int	Bureaucrat::getGrade(void) const
 	return (this->_grade);
 }
 
-
 void	Bureaucrat::incrementGrade(void)
 {
 	if (getGrade() <= 1)
@@ -66,11 +65,12 @@ void	Bureaucrat::decrementGrade(void)
 
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("GradeTooHigh");
+	return ("GradeTooHigh from Bureaucrat");
 }
+
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("GradeTooLow");
+	return ("GradeTooLow from Bureaucrat");
 }
 
 /*here overloading the output stream*/
