@@ -5,10 +5,11 @@ int main(void)
 	try
     {
         Bureaucrat obj("Counselor", 1);
-        Form form("Judge", 1, 50);
+        Form form("Judge", 2, 50);
+        std::cout << obj << std::endl;
+        std::cout << form << std::endl;
         form.beSigned(obj);
         obj.signForm(form);
-        std::cout << form;
     }
     catch(std::exception &e)
     {

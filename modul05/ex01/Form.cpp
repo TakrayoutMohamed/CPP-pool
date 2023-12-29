@@ -93,9 +93,9 @@ void Form::beSigned(const Bureaucrat &bureaucrat)
 std::ostream &operator<<(std::ostream &os,const Form &form)
 {
 	os << "************the form information:**************" << std::endl;
-	os << "** form name        		: "<< form.getName() << std::endl;
-	os << "** form grade to sign    : "<< form.getGradeToSign() << std::endl;
-	os << "** form grade to execute : "<< form.getGradeToExecute() << std::endl;
+	os << "** form name                     : "<< form.getName() << std::endl;
+	os << "** form grade required to sign   : "<< form.getGradeToSign() << std::endl;
+	os << "** form grade required to execute: "<< form.getGradeToExecute() << std::endl;
 	if (form.getIsSigned() == true)
 		os << "** form is Signed"<< std::endl;
 	else
