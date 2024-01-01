@@ -1,15 +1,15 @@
 #include "./Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int main(void)
 {
 	try
     {
         Bureaucrat obj("Counselor", 3);
-        AForm form("Judge", 2, 50);
+        ShrubberyCreationForm shrubbery("Home");
         std::cout << obj << std::endl;
-        std::cout << form << std::endl;
+        shrubbery.shrubberyAction();
         // form.beSigned(obj);
-        obj.signForm(form);
     }
     catch(std::exception &e)
     {

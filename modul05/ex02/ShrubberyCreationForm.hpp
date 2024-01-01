@@ -1,6 +1,8 @@
 #ifndef SHRUBBERYCREATIONFORM_HPP
 # define SHRUBBERYCREATIONFORM_HPP
 # include <iostream>
+# include <exception>
+# include <fstream>
 # include "./AForm.hpp"
 
 class ShrubberyCreationForm : public AForm
@@ -13,12 +15,16 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(const ShrubberyCreationForm &);
 		const ShrubberyCreationForm &operator=(const ShrubberyCreationForm &);
 		ShrubberyCreationForm(const std::string &);
-
+		class FileCreationException : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
 		/*getters*/
 		std::string getTarget(void) const;
 		
 		/*member functions*/
-		void	shrubberyAction(const std::string &) const;
+		void	shrubberyAction(void) const throw(ShrubberyCreationForm::FileCreationException);
 };
 
 #endif

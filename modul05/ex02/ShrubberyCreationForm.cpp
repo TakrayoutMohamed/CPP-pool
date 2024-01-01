@@ -2,14 +2,16 @@
 
 
 /*default constructor*/
-ShrubberyCreationForm::ShrubberyCreationForm(/* args */) : _target("defaultShrubbery") , AForm("defaultAFormShru", 145, 137)
+ShrubberyCreationForm::ShrubberyCreationForm(/* args */) : AForm("defaultAFormShru", 145, 137)
 {
+	_target = "defaultShrubbery";
 	std::cout << "Default Constructor for the shrubbery target named {"<< getTarget() <<"} has been called!"<< std::endl;
 }
 
 /*paramitrized constructor with string*/
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : _target(target) , AForm("defaultAFormShru", 145, 137)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("defaultAFormShru", 145, 137)
 {
+	_target = target;
 	std::cout << "paramitrized Constructor for the shrubbery target named {"<< getTarget() <<"} has been called!"<< std::endl;
 }
 
@@ -41,6 +43,12 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 	std::cout << "Destructor for the shrubbery target named {"<< getTarget() << "}  has been called!"<< std::endl;
 }
 
+/*exceptions classes member function*/
+const char *ShrubberyCreationForm::FileCreationException::what() const throw()
+{
+	return ("FileCreationException from ShrubberyCreationForm");
+}
+
 /*getters*/
 
 std::string ShrubberyCreationForm::getTarget(void) const
@@ -50,7 +58,35 @@ std::string ShrubberyCreationForm::getTarget(void) const
 
 /*member functions */
 
-void	ShrubberyCreationForm::shrubberyAction(const std::string &target) const
+void traceAsciiTree(std::ofstream &os)
 {
-	
+	os << "              v .   ._, |_  .,        " << std::endl;
+	os << "           `-._\\/  .  \\ /    |/_      " << std::endl;
+	os << "               \\  _\\, y | \\//        " << std::endl;
+	os << "         _\\_.___\\, \\/ -.\\||         " << std::endl;
+	os << "           `7-,--.`._||  / / ,        " << std::endl;
+	os << "           /'     `-. `./ / |/_.'     " << std::endl;
+	os << "                     |    |//         " << std::endl;
+	os << "                     |_    /          " << std::endl;
+	os << "                     |-   |           " << std::endl;
+	os << "                     |   =|           " << std::endl;
+	os << "                     |    |           " << std::endl;
+	os << "--------------------/ ,  . \\--------._" << std::endl;
+}
+
+void	ShrubberyCreationForm::shrubberyAction(void) const 
+	throw(ShrubberyCreationForm::FileCreationException)
+{
+	std::ofstream	outFile;
+
+	outFile.open((getTarget()));
+	if (!outFile.is_open())
+	{
+		std::cout << "the file :{"<< getTarget() + "_shrubbery" << "} could not be created " << std::endl;
+		throw ShrubberyCreationForm::FileCreationException();
+	}
+	traceAsciiTree(outFile);
+	outFile.close();
+	std::cout << "the file{"<< getTarget() <<"_shrubbery} has been created successfully and filled with an ascii tree" << std::endl;
+	std::cout << "the shrubbery has been planted at " << getTarget() << " successfully" << std::endl;
 }
