@@ -8,8 +8,8 @@ int main(void)
         Bureaucrat obj("Counselor", 3);
         ShrubberyCreationForm shrubbery("Home");
         std::cout << obj << std::endl;
-        shrubbery.shrubberyAction();
-        // form.beSigned(obj);
+        shrubbery.beSigned(obj);
+        shrubbery.execute(obj);
     }
     catch(std::exception &e)
     {
