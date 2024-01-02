@@ -79,7 +79,8 @@ void	ShrubberyCreationForm::shrubberyAction(void) const
 {
 	std::ofstream	outFile;
 
-	outFile.open((getTarget()));
+	outFile.open("target_shrubbery"); // befor pushing to vogsphir i should remove this one
+	// outFile.open((getTarget() + "_shrubbery"));
 	if (!outFile.is_open())
 	{
 		std::cout << "the file :{"<< getTarget() + "_shrubbery" << "} could not be created " << std::endl;
@@ -89,4 +90,18 @@ void	ShrubberyCreationForm::shrubberyAction(void) const
 	outFile.close();
 	std::cout << "the file{"<< getTarget() <<"_shrubbery} has been created successfully and filled with an ascii tree" << std::endl;
 	std::cout << "the shrubbery has been planted at " << getTarget() << " successfully" << std::endl;
+}
+
+void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
+{
+	checkExecutRequirment(executor);
+	try
+	{
+		shrubberyAction();
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	
 }

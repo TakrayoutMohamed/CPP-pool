@@ -25,6 +25,7 @@ class ShrubberyCreationForm : public AForm
 		
 		/*member functions*/
 		void	shrubberyAction(void) const throw(ShrubberyCreationForm::FileCreationException);
+		void execute(Bureaucrat const & executor) const;
 };
 
 #endif
