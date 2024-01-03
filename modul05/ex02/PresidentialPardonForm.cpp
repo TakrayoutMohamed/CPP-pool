@@ -59,7 +59,6 @@ void	PresidentialPardonForm::presidentialPardonAction(void) const
 
 void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
-    (void) executor;
+	checkExecutRequirment(executor);
     presidentialPardonAction();
-	
 }
