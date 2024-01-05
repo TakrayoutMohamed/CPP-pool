@@ -2,41 +2,26 @@
 #include "ShrubberyCreationForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "Intern.hpp"
 
 int main(void)
 {
 	try
-	{
-		std::cout << "\n------------------*** CONSTRUCTORS ***-------------------\n" << std::endl;
-		
-		Bureaucrat Counselor("Counselor", 20);
-		
-		PresidentialPardonForm ppf("Bandit");
-		RobotomyRequestForm	rrf("drivingLicence");
-		ShrubberyCreationForm scf("home");
+    {
+		Bureaucrat obj("president", 1);
+        Intern intern_obj;
+        AForm *form = NULL;
+		std::cout << "***************************************" << std::endl;
+        form = intern_obj.makeForm("PresidentialPardonForm", "alvares");
 
-		std::cout << "\n--------------*** FORMS DEMONSTRATION ***---------------\n" << std::endl;
-		
-		ppf.beSigned(Counselor);
-		ppf.execute(Counselor);
-		rrf.beSigned(Counselor);
-		rrf.execute(Counselor);
-		scf.beSigned(Counselor);
-		scf.execute(Counselor);
-		
-		std::cout << "\n-----------*** BUREAUCRAT FORMS EXECUTION ***-----------\n" << std::endl;
-		
-		AForm *form;
-		
-		form = &rrf;
-		form->beSigned(Counselor);
-		Counselor.executeForm(*form);
-		
-		std::cout << "\n------------------*** DESTRUCTORS ***-------------------\n" << std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+		obj.signForm(*form);
+		obj.executeForm(*form);
+		delete form;
+		std::cout << "***************************************" << std::endl;
+    }
+    catch(std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+    }
 	return (0);
 }
