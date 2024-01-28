@@ -10,13 +10,14 @@ class ScalarConverter
 		int		_int;
 		float	_float;
 		double	_double;
-	public:
+	protected :
 		ScalarConverter();
+		~ScalarConverter();
+	public:
 		ScalarConverter(const ScalarConverter &obj);
 		const ScalarConverter &operator=(const ScalarConverter& obj);
-		~ScalarConverter();
 		/*methods*/
-		void convert(const std::string &str);
+		static void convert(const std::string &str);
 };
 
 

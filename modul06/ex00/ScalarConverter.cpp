@@ -33,5 +33,6 @@ ScalarConverter::~ScalarConverter()
 
 void ScalarConverter::convert(const std::string &str)
 {
+    //check the type of the 
     std::cout << str << std::endl;
 }
