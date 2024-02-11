@@ -20,10 +20,6 @@
 class ScalarConverter
 {
 	private:
-		char	_char;
-		int		_int;
-		float	_float;
-		double	_double;
 	private:/*private methods*/
 		static int  getType(const std::string &str);
 	protected :

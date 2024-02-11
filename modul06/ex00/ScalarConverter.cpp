@@ -17,12 +17,7 @@ const ScalarConverter &ScalarConverter::operator=(const ScalarConverter& obj)
 {
 	std::cout << "Copy assignment operator for ScalarConverter has been called "<< std::endl;
 	if (this != &obj)
-	{
-		this->_char = obj._char;
-		this->_int = obj._int;
-		this->_float = obj._float;
-		this->_double = obj._double;
-	}
+	{ }
 	return (*this);
 }
 
@@ -147,7 +142,6 @@ void	intCase(const std::string &str)
 {
 	int nbr;
 
-	std::cout << "hhhhhhhhh" << std::endl;
 	std::stringstream(str) >> nbr;
 	if (!isprint(nbr))
 		std::cout << "char:  Non displayable" << std::endl;
@@ -201,11 +195,6 @@ void	degitsOrCharCase(const std::string &str, const int dataType)
 
 void ScalarConverter::convert(const std::string &str)
 {
-	// check if the data is one of the four types if not than 
-	// 		check if one of irregular other types
-	// 		return that its a string type
-	//check the type of the 
-	// ScalarConverter scalarConverter;
 	int	dataType;
 
 	dataType = ScalarConverter::getType(str);
@@ -219,5 +208,4 @@ void ScalarConverter::convert(const std::string &str)
 		minusInfOrMinusInffCase();
 	else if (dataType > 0 && dataType < 5)
 		degitsOrCharCase(str, dataType);
-	// std::cout << str << std::endl;
 }
