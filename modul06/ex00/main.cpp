@@ -9,7 +9,6 @@ int	main(int argc, char **argv)
 		std::cout << "\t\t ./convert 44" << std::endl;
 		return (1);
 	}
-	ScalarConverter converter;
-	converter.convert((std::string)argv[1]);
+	ScalarConverter::convert((std::string)argv[1]);
 	return (0);
 }
