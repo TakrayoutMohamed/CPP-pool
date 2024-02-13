@@ -132,7 +132,7 @@ void	charCase(const std::string &str)
 	if (!isprint(static_cast<int> (c)))
 		std::cout << "char:  Non displayable" << std::endl;
 	else
-		std::cout << "char: "<< c << std::endl;
+		std::cout << "char: '"<< c << "'" << std::endl;
 	std::cout << "int: "<< static_cast<int> (c) << std::endl;
 	std::cout << "float: " << std::fixed << std::setprecision(1)<< static_cast<float> (c) << "f" << std::endl;
 	std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double> (c) << std::endl;
@@ -161,7 +161,7 @@ void	floatCase(std::string str)
 	if (!isprint(static_cast<int> (nbrf)))
 		std::cout << "char:  Non displayable" << std::endl;
 	else
-		std::cout << "char: "<< static_cast<char> (nbrf) << std::endl;
+		std::cout << "char: '"<< static_cast<char> (nbrf)<< "'" << std::endl;
 	std::cout << "int: "<< static_cast<int> (nbrf) << std::endl;
 	std::cout << "float: " << std::fixed << std::setprecision(2) <<  nbrf << "f" << std::endl;
 	std::cout << "double: " <<  static_cast<double> (nbrf) << std::endl;
@@ -175,7 +175,7 @@ void	doubleCase(const std::string &str)
 	if (!isprint(static_cast<int> (nbrd)))
 		std::cout << "char:  Non displayable" << std::endl;
 	else
-		std::cout << "char: "<< static_cast<char> (nbrd) << std::endl;
+		std::cout << "char: '"<< static_cast<char> (nbrd)<< "'" << std::endl;
 	std::cout << "int: "<< static_cast<int> (nbrd) << std::endl;
 	std::cout << "float: " << std::fixed << std::setprecision(2)<< static_cast<float> (nbrd) << "f" << std::endl;
 	std::cout << "double: " << std::fixed << std::setprecision(2) << nbrd << std::endl;
