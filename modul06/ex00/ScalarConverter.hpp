@@ -13,6 +13,7 @@
 # define MINUS_INFF_ 11
 # include <iostream>
 # include <exception>
+# include <sstream>
 # include <iomanip>
 
 
