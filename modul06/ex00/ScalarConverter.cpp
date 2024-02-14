@@ -35,6 +35,8 @@ int	getTypeNormal(const std::string &str)
 		return (CHAR_);
 	if (static_cast<char> (str[i]) == '-' || static_cast<char> (str[i]) == '+')
 		i++;
+	if (static_cast<char> (str[i]) == '.')
+		return (STRING_);
 	while (isdigit(static_cast<int> (str[i])))
 		i++;
 	if (static_cast<char>(str[i]) == '.')
@@ -81,7 +83,7 @@ int	getTypeAbnormal(const std::string &str)
 	return (STRING_);
 }
 
-int ScalarConverter::getType(const std::string &str)
+int getType(const std::string &str)
 {
 	int	normalType;
 
@@ -197,7 +199,7 @@ void ScalarConverter::convert(const std::string &str)
 {
 	int	dataType;
 
-	dataType = ScalarConverter::getType(str);
+	dataType = getType(str);
 	if (dataType == STRING_)
 		stringCase();
 	else if (dataType == NAN_ || dataType == NANF_)

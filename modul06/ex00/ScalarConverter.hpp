@@ -20,9 +20,6 @@
 class ScalarConverter
 {
 	private:
-	private:/*private methods*/
-		static int  getType(const std::string &str);
-	protected :
 		ScalarConverter();
 		~ScalarConverter();
 	public:
