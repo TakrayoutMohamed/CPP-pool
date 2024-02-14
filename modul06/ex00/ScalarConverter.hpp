@@ -14,7 +14,6 @@
 # include <iostream>
 # include <exception>
 # include <iomanip>
-# include "./utils/ConvertToInt.hpp"
 
 
 class ScalarConverter
