@@ -68,9 +68,16 @@ void identify(Base &p)
 	}
 }
 
+void foo(void) {system("leaks realType");}
+
 int main(void)
 {
+	atexit(foo);
 	Base *pbase = generate();
 	identify(pbase);
+	Base &rbase = *pbase;
+	identify(rbase);
+	delete pbase;
+
 	return (0);
 }

@@ -3,4 +3,5 @@
 
 Base::~Base()
 {
+	std::cout << "Destructor for Base" << std::endl;
 }
