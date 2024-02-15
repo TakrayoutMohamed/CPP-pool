@@ -7,8 +7,7 @@ Base * generate(void)
 {
 	int randomNbr;
 
-	srand(time(NULL));
-	randomNbr = rand() % 3;
+	randomNbr = time(NULL) % 3;
 	switch (randomNbr)
 	{
 		case 0:
@@ -68,16 +67,13 @@ void identify(Base &p)
 	}
 }
 
-void foo(void) {system("leaks realType");}
-
 int main(void)
 {
-	atexit(foo);
 	Base *pbase = generate();
-	identify(pbase);
 	Base &rbase = *pbase;
+
+	identify(pbase);
 	identify(rbase);
 	delete pbase;
-
 	return (0);
 }
