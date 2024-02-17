@@ -8,14 +8,27 @@ int main(void)
 {
 	try
     {
-		Bureaucrat obj("president", 1);
+		Bureaucrat obj("CEO", 1);
         Intern intern_obj;
-        AForm *form = NULL;
+        AForm *form;
 		std::cout << "***************************************" << std::endl;
-        form = intern_obj.makeForm("PresidentialPardonForm", "alvares");
-
-		obj.signForm(*form);
-		obj.executeForm(*form);
+        form = intern_obj.makeForm("robotomy request", "Bender");
+        try
+        {
+    		obj.signForm(*form);        
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+        try
+        {
+    		obj.executeForm(*form);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
 		delete form;
 		std::cout << "***************************************" << std::endl;
     }

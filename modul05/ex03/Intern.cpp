@@ -35,7 +35,7 @@ const char *Intern::FormNotExistException::what(void) const throw()
 AForm	* Intern::makeForm(std::string formName, std::string formTarget) const
 {
 	int	i;
-	const std::string forms[] = {"RobotomyRequestForm", "PresidentialPardonForm", "ShrubberyCreationForm"};
+	const std::string forms[] = {"robotomy request", "presidential pardon", "shrubbery creation"};
 
 	i = 0;
 	for (i = 0; i < 3; i++)

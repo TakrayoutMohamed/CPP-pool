@@ -53,10 +53,10 @@ std::string RobotomyRequestForm::getTarget(void) const
 
 void	RobotomyRequestForm::robotomyRequestAction(void) const
 {
-    int random = rand();
+    int random = time(NULL);
 	std::cout << getTarget() <<  " Some driling noises." << std::endl;
     if (random % 2 == 0)
-        std::cout << getTarget() << "has been robotomized successfully" << std::endl;
+        std::cout << getTarget() << " has been robotomized successfully" << std::endl;
     else
         std::cout << getTarget() << " the robotomy failed" << std::endl;
 
