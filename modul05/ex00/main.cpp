@@ -12,7 +12,7 @@ int main(void)
 		std::cout << Bloc1;
 		Bloc1.incrementGrade();
 		std::cout << Bloc1;
-		B0.decrementGrade();
+		B0.incrementGrade();
 	}
 	catch(std::exception &gradeExceptions)
 	{
