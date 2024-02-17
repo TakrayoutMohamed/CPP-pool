@@ -6,7 +6,7 @@ Bureaucrat::Bureaucrat(/* args */) : _name("BureacratDefaultName"), _grade(150)
 }
 
 /*copy constructor*/
-Bureaucrat::Bureaucrat(const Bureaucrat &obj)
+Bureaucrat::Bureaucrat(const Bureaucrat &obj) : _name(obj.getName())
 {
 	std::cout << "{copy constructor to copy from the bureaucrat named [" << obj.getName() <<"] has been called}" << std::endl;
 	if (this != &obj)
@@ -19,18 +19,17 @@ const Bureaucrat &Bureaucrat::operator=(const Bureaucrat &obj)
 	if (this != &obj)
 	{
 		this->_grade = obj.getGrade();
-		(std::string)this->_name = obj.getName();
 	}
 	return (*this);
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade)
 {
+	std::cout << "{constructor for [" << getName() << "] has been called with grade " << getGrade() <<"}" << std::endl;
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException;
 	else if (grade > 150)
 		throw Bureaucrat::GradeTooLowException;
-	std::cout << "{constructor for [" << getName() << "] has been called with grade " << getGrade() <<"}" << std::endl;
 }
 
 Bureaucrat::~Bureaucrat()
@@ -73,7 +72,7 @@ void	Bureaucrat::signForm(Form &form)
 	}
 	catch (std::exception &e)
 	{
-		std::cout << this->getName() << " couldn’t sign " << form.getName() << "because " << e.what() << std::endl;
+		std::cout << this->getName() << " couldn’t sign " << form.getName() << " because " << e.what() << std::endl;
 
 	}
 
