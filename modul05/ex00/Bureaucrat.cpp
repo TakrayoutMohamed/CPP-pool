@@ -2,20 +2,20 @@
 
 Bureaucrat::Bureaucrat(/* args */) : _name("BureacratDefaultName"), _grade(150)
 {
-	std::cout << "{Default constructor for the bureaucrat named ["<< getName() << "] has been called}" << std::endl;
+	// std::cout << "{Default constructor for the bureaucrat named ["<< getName() << "] has been called}" << std::endl;
 }
 
 /*copy constructor*/
 Bureaucrat::Bureaucrat(const Bureaucrat &obj) : _name(obj.getName())
 {
-	std::cout << "{copy constructor to copy from the bureaucrat named [" << obj.getName() <<"] has been called}" << std::endl;
+	// std::cout << "{copy constructor to copy from the bureaucrat named [" << obj.getName() <<"] has been called}" << std::endl;
 	if (this != &obj)
 		*this = obj;
 }
 /*copy assignment operator*/
 const Bureaucrat &Bureaucrat::operator=(const Bureaucrat &obj)
 {
-	std::cout << "{copy assignment operator has been called to copy the data of bureaucrat named :["<< obj.getName()<< "]}" << std::endl;
+	// std::cout << "{copy assignment operator has been called to copy the data of bureaucrat named :["<< obj.getName()<< "]}" << std::endl;
 	if (this != &obj)
 	{
 		this->_grade = obj.getGrade();
@@ -25,7 +25,7 @@ const Bureaucrat &Bureaucrat::operator=(const Bureaucrat &obj)
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade)
 {
-	std::cout << "{constructor for [" << getName() << "] has been called with grade " << getGrade() <<"}" << std::endl;
+	// std::cout << "{constructor for [" << getName() << "] has been called with grade " << getGrade() <<"}" << std::endl;
 	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException;
 	else if (grade > 150)
@@ -34,7 +34,7 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(
 
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "{Destructor for the bureaucrat named ["<< getName() <<"] has been called }" << std::endl;
+	// std::cout << "{Destructor for the bureaucrat named ["<< getName() <<"] has been called }" << std::endl;
 }
 
 
