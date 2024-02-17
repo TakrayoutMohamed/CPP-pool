@@ -74,8 +74,7 @@ void traceAsciiTree(std::ofstream &os)
 	os << "--------------------/ ,  . \\--------._" << std::endl;
 }
 
-void	ShrubberyCreationForm::shrubberyAction(void) const 
-	throw(ShrubberyCreationForm::FileCreationException)
+void	ShrubberyCreationForm::shrubberyAction(void) const
 {
 	std::ofstream	outFile;
 

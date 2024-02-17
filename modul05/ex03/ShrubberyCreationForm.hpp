@@ -24,7 +24,7 @@ class ShrubberyCreationForm : public AForm
 		std::string getTarget(void) const;
 		
 		/*member functions*/
-		void	shrubberyAction(void) const throw(ShrubberyCreationForm::FileCreationException);
+		void	shrubberyAction(void) const;
 		void execute(Bureaucrat const & executor) const;
 };
 
