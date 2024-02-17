@@ -79,8 +79,7 @@ void	ShrubberyCreationForm::shrubberyAction(void) const
 {
 	std::ofstream	outFile;
 
-	outFile.open("target_shrubbery"); // befor pushing to vogsphir i should remove this one
-	// outFile.open((getTarget() + "_shrubbery"));
+	outFile.open((getTarget() + "_shrubbery"));
 	if (!outFile.is_open())
 	{
 		std::cout << "the file :{"<< getTarget() + "_shrubbery" << "} could not be created " << std::endl;

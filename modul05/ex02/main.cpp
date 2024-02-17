@@ -7,24 +7,68 @@ int main(void)
 {
 	try
 	{
-		std::cout << "\n------------------*** CONSTRUCTORS ***-------------------\n" << std::endl;
+		std::cout << "********************* CONSTRUCTORS **********************" << std::endl;
 		
 		Bureaucrat Counselor("Counselor", 20);
 		
-		PresidentialPardonForm ppf("Bandit");
-		RobotomyRequestForm	rrf("drivingLicence");
+		PresidentialPardonForm ppf("PresidentialPardonForm");
+		RobotomyRequestForm	rrf("RobotomyRequestForm");
 		ShrubberyCreationForm scf("home");
 
-		std::cout << "\n--------------*** FORMS DEMONSTRATION ***---------------\n" << std::endl;
+		std::cout << "***************** FORMS DEMONSTRATION ******************" << std::endl;
 		
-		ppf.beSigned(Counselor);
-		ppf.execute(Counselor);
-		rrf.beSigned(Counselor);
-		rrf.execute(Counselor);
-		scf.beSigned(Counselor);
-		scf.execute(Counselor);
+		try
+		{
+			ppf.beSigned(Counselor);		
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << Counselor.getName() << " couldn't sign "<< ppf.getName() <<" Because : " << e.what() << std::endl;
+		}
+		try
+		{
+			ppf.execute(Counselor);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << Counselor.getName() << " couldn't execute "<< ppf.getName() <<" Because : " << e.what() << std::endl;
+		}
+		try
+		{
+			rrf.beSigned(Counselor);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << Counselor.getName() << " couldn't sign "<< rrf.getName() <<" Because : " << e.what() << std::endl;
+		}
+		try
+		{
+			rrf.execute(Counselor);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << Counselor.getName() << " couldn't execute "<< rrf.getName() <<" Because : " << e.what() << std::endl;
+		}
+		try
+		{
+			scf.beSigned(Counselor);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << Counselor.getName() << " couldn't sign "<< scf.getName() <<" Because : " << e.what() << std::endl;
+		}
+		try
+		{
+			scf.execute(Counselor);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << Counselor.getName() << " couldn't sign "<< scf.getName() <<" Because : " << e.what() << std::endl;
+		}
 		
-		std::cout << "\n-----------*** BUREAUCRAT FORMS EXECUTION ***-----------\n" << std::endl;
+		
+		
+		std::cout << "************** BUREAUCRAT FORMS EXECUTION **************" << std::endl;
 		
 		AForm *form;
 		
@@ -32,11 +76,11 @@ int main(void)
 		form->beSigned(Counselor);
 		Counselor.executeForm(*form);
 		
-		std::cout << "\n------------------*** DESTRUCTORS ***-------------------\n" << std::endl;
+		std::cout << "********************* DESTRUCTORS **********************" << std::endl;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
 	}
 	return (0);
 }

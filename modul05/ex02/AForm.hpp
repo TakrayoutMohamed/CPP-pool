@@ -18,7 +18,7 @@ class AForm
 		AForm(const std::string &, const int, const int);
 		AForm(const AForm &);
 		const AForm &operator=(const AForm&);
-		~AForm();
+		virtual ~AForm();
 
 		/*Exception classes*/
 		class GradeTooLowException : public std::exception
