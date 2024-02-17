@@ -11,7 +11,7 @@ Form::Form(/* args */) : _name("DefaultNameForm"), _gradeToSign(150), _gradeToEx
 		throw Form::GradeTooHighException;
 	if (_gradeToExecute < 1)
 		throw Form::GradeTooHighException;
-	std::cout << "Default constructor for Form named {"<< this->getName() << "} has been called" << std::endl;
+	// std::cout << "Default constructor for Form named {"<< this->getName() << "} has been called" << std::endl;
 }
 
 Form::Form(const std::string &name, const int gradeToSign, const int gradeToExecute) : _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
@@ -25,19 +25,19 @@ Form::Form(const std::string &name, const int gradeToSign, const int gradeToExec
 		throw Form::GradeTooHighException;
 	if (_gradeToExecute < 1)
 		throw Form::GradeTooHighException;
-	std::cout << "paramitrized constructor for Form named {"<< this->getName() << "} has been called" << std::endl;
+	// std::cout << "paramitrized constructor for Form named {"<< this->getName() << "} has been called" << std::endl;
 }
 
 Form::Form(const Form &obj)  : _name(obj._name), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute)
 {
-	std::cout << "Copy constructor has been called" << std::endl;
+	// std::cout << "Copy constructor has been called" << std::endl;
 	if (this != &obj)
 		*this = obj;
 }
 
 const Form &Form::operator=(const Form &obj)
 {
-	std::cout << "Copy assignment operator has been called" << std::endl;
+	// std::cout << "Copy assignment operator has been called" << std::endl;
 	if (this != &obj)
 	{
 		this->_isSigned = obj.getIsSigned();
@@ -47,7 +47,7 @@ const Form &Form::operator=(const Form &obj)
 
 Form::~Form()
 {
-	std::cout << "Destructor has been called for the form named {"<< getName() << "}" << std::endl;
+	// std::cout << "Destructor has been called for the form named {"<< getName() << "}" << std::endl;
 }
 
 /*getters*/

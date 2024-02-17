@@ -4,14 +4,14 @@
 RobotomyRequestForm::RobotomyRequestForm(/* args */) : AForm("defaultAFormRoboReq", 72, 45)
 {
 	_target = "defaultrobotomyRequest";
-	std::cout << "Default Constructor for the robotomyRequest target named {"<< getTarget() <<"} has been called!"<< std::endl;
+	// std::cout << "Default Constructor for the robotomyRequest target named {"<< getTarget() <<"} has been called!"<< std::endl;
 }
 
 /*paramitrized constructor with string*/
 RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("defaultAFormRoboReq", 72, 45)
 {
 	_target = target;
-	std::cout << "paramitrized Constructor for the robotomyRequest target named {"<< getTarget() <<"} has been called!"<< std::endl;
+	// std::cout << "paramitrized Constructor for the robotomyRequest target named {"<< getTarget() <<"} has been called!"<< std::endl;
 }
 
 /*copy constructor*/
@@ -21,14 +21,14 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &obj) : AForm
 	{
 		*this = obj;
 	}
-	std::cout << "Copy Constructor for the robotomyRequest target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
+	// std::cout << "Copy Constructor for the robotomyRequest target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
 }
 
 
 /*copy assignment operator*/
 const RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &obj)
 {
-	std::cout << "Copy assignment operator for the robotomyRequest target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
+	// std::cout << "Copy assignment operator for the robotomyRequest target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
 	if (this != &obj)
 	{
 		this->_target = obj.getTarget();
@@ -39,7 +39,7 @@ const RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestF
 /*destructor*/
 RobotomyRequestForm::~RobotomyRequestForm()
 {
-	std::cout << "Destructor for the robotomyRequest target named {"<< getTarget() << "}  has been called!"<< std::endl;
+	// std::cout << "Destructor for the robotomyRequest target named {"<< getTarget() << "}  has been called!"<< std::endl;
 }
 
 /*getters*/

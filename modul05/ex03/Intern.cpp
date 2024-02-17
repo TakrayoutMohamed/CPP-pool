@@ -2,12 +2,12 @@
 
 Intern::Intern(/* args */)
 {
-	std::cout << "Default constructor for intern has been called" << std::endl;
+	// std::cout << "Default constructor for intern has been called" << std::endl;
 }
 
 Intern::Intern(const Intern &obj)
 {
-	std::cout << "Copy constructor for intern has been called" << std::endl;
+	// std::cout << "Copy constructor for intern has been called" << std::endl;
 	if (this != &obj)
 	{
 		*this = obj;
@@ -17,13 +17,13 @@ Intern::Intern(const Intern &obj)
 const Intern &Intern::operator=(const Intern &obj)
 {
 	(void) obj;
-	std::cout << "Copy assignement operator for intern has been called" << std::endl;
+	// std::cout << "Copy assignement operator for intern has been called" << std::endl;
 	return (*this);
 }
 
 Intern::~Intern()
 {
-	std::cout << "Destructor for intern has been called" << std::endl;
+	// std::cout << "Destructor for intern has been called" << std::endl;
 }
 
 /*member function exception*/

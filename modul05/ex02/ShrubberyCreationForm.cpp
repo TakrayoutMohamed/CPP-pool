@@ -5,14 +5,14 @@
 ShrubberyCreationForm::ShrubberyCreationForm(/* args */) : AForm("defaultAFormShru", 145, 137)
 {
 	_target = "defaultShrubbery";
-	std::cout << "Default Constructor for the shrubbery target named {"<< getTarget() <<"} has been called!"<< std::endl;
+	// std::cout << "Default Constructor for the shrubbery target named {"<< getTarget() <<"} has been called!"<< std::endl;
 }
 
 /*paramitrized constructor with string*/
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("defaultAFormShru", 145, 137)
 {
 	_target = target;
-	std::cout << "paramitrized Constructor for the shrubbery target named {"<< getTarget() <<"} has been called!"<< std::endl;
+	// std::cout << "paramitrized Constructor for the shrubbery target named {"<< getTarget() <<"} has been called!"<< std::endl;
 }
 
 /*copy constructor*/
@@ -22,14 +22,14 @@ ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) :
 	{
 		*this = obj;
 	}
-	std::cout << "Copy Constructor for the shrubbery target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
+	// std::cout << "Copy Constructor for the shrubbery target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
 }
 
 
 /*copy assignment operator*/
 const ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &obj)
 {
-	std::cout << "Copy assignment operator for the shrubbery target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
+	// std::cout << "Copy assignment operator for the shrubbery target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
 	if (this != &obj)
 	{
 		this->_target = obj.getTarget();
@@ -40,7 +40,7 @@ const ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCre
 /*destructor*/
 ShrubberyCreationForm::~ShrubberyCreationForm()
 {
-	std::cout << "Destructor for the shrubbery target named {"<< getTarget() << "}  has been called!"<< std::endl;
+	// std::cout << "Destructor for the shrubbery target named {"<< getTarget() << "}  has been called!"<< std::endl;
 }
 
 /*exceptions classes member function*/

@@ -11,7 +11,7 @@ AForm::AForm(/* args */) : _name("DefaultNameAForm"), _gradeToSign(150), _gradeT
 		throw AForm::GradeTooHighException;
 	if (_gradeToExecute < 1)
 		throw AForm::GradeTooHighException;
-	std::cout << "Default constructor for AForm named {"<< this->getName() << "} has been called" << std::endl;
+	// std::cout << "Default constructor for AForm named {"<< this->getName() << "} has been called" << std::endl;
 }
 
 AForm::AForm(const std::string &name, const int gradeToSign, const int gradeToExecute) : _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
@@ -25,19 +25,19 @@ AForm::AForm(const std::string &name, const int gradeToSign, const int gradeToEx
 		throw AForm::GradeTooHighException;
 	if (_gradeToExecute < 1)
 		throw AForm::GradeTooHighException;
-	std::cout << "paramitrized constructor for AForm named {"<< this->getName() << "} has been called" << std::endl;
+	// std::cout << "paramitrized constructor for AForm named {"<< this->getName() << "} has been called" << std::endl;
 }
 
 AForm::AForm(const AForm &obj)  : _name(obj._name), _gradeToSign(obj._gradeToSign), _gradeToExecute(obj._gradeToExecute)
 {
-	std::cout << "Copy constructor has been called" << std::endl;
+	// std::cout << "Copy constructor has been called" << std::endl;
 	if (this != &obj)
 		*this = obj;
 }
 
 const AForm &AForm::operator=(const AForm &obj)
 {
-	std::cout << "Copy assignment operator has been called" << std::endl;
+	// std::cout << "Copy assignment operator has been called" << std::endl;
 	if (this != &obj)
 	{
 		this->_isSigned = obj.getIsSigned();
@@ -47,7 +47,7 @@ const AForm &AForm::operator=(const AForm &obj)
 
 AForm::~AForm()
 {
-	std::cout << "Destructor has been called for the Aform named {"<< getName() << "}" << std::endl;
+	// std::cout << "Destructor has been called for the Aform named {"<< getName() << "}" << std::endl;
 }
 
 /*getters*/

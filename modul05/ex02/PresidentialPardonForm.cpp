@@ -11,7 +11,7 @@ PresidentialPardonForm::PresidentialPardonForm(/* args */) : AForm("defaultAForm
 PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("defaultAFormPrisPard", 25, 5)
 {
 	_target = target;
-	std::cout << "paramitrized Constructor for the presidentialPardon target named {"<< getTarget() <<"} has been called!"<< std::endl;
+	// std::cout << "paramitrized Constructor for the presidentialPardon target named {"<< getTarget() <<"} has been called!"<< std::endl;
 }
 
 /*copy constructor*/
@@ -21,14 +21,14 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &obj
 	{
 		*this = obj;
 	}
-	std::cout << "Copy Constructor for the presidentialPardon target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
+	// std::cout << "Copy Constructor for the presidentialPardon target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
 }
 
 
 /*copy assignment operator*/
 const PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &obj)
 {
-	std::cout << "Copy assignment operator for the presidentialPardon target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
+	// std::cout << "Copy assignment operator for the presidentialPardon target named {"<< obj.getTarget() << "} has been called!"<< std::endl;
 	if (this != &obj)
 	{
 		this->_target = obj.getTarget();
@@ -39,7 +39,7 @@ const PresidentialPardonForm &PresidentialPardonForm::operator=(const Presidenti
 /*destructor*/
 PresidentialPardonForm::~PresidentialPardonForm()
 {
-	std::cout << "Destructor for the presidentialPardon target named {"<< getTarget() << "}  has been called!"<< std::endl;
+	// std::cout << "Destructor for the presidentialPardon target named {"<< getTarget() << "}  has been called!"<< std::endl;
 }
 
 /*getters*/
