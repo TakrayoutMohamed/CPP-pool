@@ -1,5 +1,6 @@
 #ifndef ARRAY_HPP
 # define ARRAY_HPP
+# include <exception>
 # include <iostream>
 
 template <class T>
@@ -9,12 +10,18 @@ class Array
 		T *arr;
 		unsigned int _n;
 	public :
-		Array();
+		class OutOfBoundsException : public std::exception
+		{
+			private:
+				/* data */
+			public:
+				virtual const char *what() const throw();
+		}OutOfBoundsException;
+		Array<T>();
 		Array(unsigned int);
 		Array(const Array<T> &obj);
 		const Array<T> &operator=(const Array<T> &obj);
 		T &operator[](int index);
-		//here i still need to declere the subscript operator []
 		/*membeer functions*/
 		size_t	size(void) const;
 		~Array();
@@ -23,45 +30,40 @@ class Array
 template <class T>
 Array<T>::Array(): _n(0)
 {
-	std::cout << "Default Constructor" << std::endl;
+	// std::cout << "Default Constructor" << std::endl;
 	arr = new T[0];
 };
 
 template <class T>
 Array<T>::Array(unsigned int n) : _n(n)
 {
-	std::cout << "Constructor(unsigned int)" << std::endl;
+	// std::cout << "Constructor(unsigned int)" << std::endl;
 	arr = new T[_n];
-	std::cout << "Constructor(unsigned int)" << std::endl;
 };
 
 template <class T>
-Array<T>::Array(const Array<T> &obj)
+Array<T>::Array(const Array<T> &obj) : arr(NULL)
 {
-	std::cout << "Copy constructor" << std::endl;
-	if (this != &obj)
-	{
-		*this = Array<T> (obj);
-	}
+	// std::cout << "Copy constructor" << std::endl;
+	*this = obj;
 };
 
 template<class T>
 const Array<T> &Array<T>::operator=(const Array<T> &obj)
 {
-	std::cout << "Copy assignment operator" << std::endl;
+	// std::cout << "Copy assignment operator" << std::endl;
 	if (this != &obj)
 	{
-		std::cout << "sssssssss fuuuuck1" << std::endl;
-		// if (this->arr)
-		// 	delete[] arr;
-		this->arr = new T[obj.size()];
-		for (int i = 0; i < obj.size(); i++)
+		if (this->arr)
 		{
-			std::cout << "1   i = " << i << std::endl;
-			this->arr[i] = obj.arr[i];
-			std::cout << "2"<< std::endl;
+			delete[] this->arr;
 		}
-		std::cout << "sssssssss fuuuuck2" << std::endl;
+		this->_n = obj.size();
+		this->arr = new T[obj.size()];
+		for (size_t i = 0; i < obj.size(); i++)
+		{
+			this->arr[i] = obj.arr[i];
+		}
 	}
 	return (*this);
 };
@@ -69,7 +71,9 @@ const Array<T> &Array<T>::operator=(const Array<T> &obj)
 template<class T>
 T &Array<T>::operator[](int index)
 {
-	std::cout << "subscript operator" << std::endl;
+	// std::cout << "subscript operator" << std::endl;
+	if (index >= static_cast <int>(this->_n) || index < 0)
+		throw OutOfBoundsException;
 	return (arr[index]);
 }
 
@@ -80,9 +84,15 @@ size_t Array<T>::size(void) const
 };
 
 template <class T>
+const char *Array<T>::OutOfBoundsException::what() const throw()
+{
+	return "OutOfBoundsException";
+}
+
+template <class T>
 Array<T>::~Array()
 {
-	std::cout << "Destructor" << std::endl;
+	// std::cout << "Destructor" << std::endl;
 	delete[] arr;
 }
 
