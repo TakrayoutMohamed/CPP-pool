@@ -2,7 +2,7 @@ NAME=funTempClass
 CPP= c++ 
 CPPFLAGS=-Wall -Wextra -Werror -std=c++98
 RM=rm -f
-SRC = main.cpp  
+SRC = main.cpp  OutOfBoundsException.cpp
 	
 OBJ = $(SRC:.cpp=.o)
 
@@ -12,7 +12,7 @@ $(NAME): $(OBJ)
 		@$(CPP) $(CPPFLAGS) -o $@ $(OBJ)
 		@echo "the files has ben archived successfully"
 
-%.o: %.cpp Array.hpp 
+%.o: %.cpp Array.hpp OutOfBoundsException.hpp
 		@$(CPP) $(CPPFLAGS) -o $@ -c $<
 		@echo "the file $@ has been created from $<"
 

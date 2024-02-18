@@ -2,6 +2,7 @@
 # define ARRAY_HPP
 # include <exception>
 # include <iostream>
+# include "OutOfBoundsException.hpp"
 
 template <class T>
 class Array
@@ -10,13 +11,6 @@ class Array
 		T *arr;
 		unsigned int _n;
 	public :
-		class OutOfBoundsException : public std::exception
-		{
-			private:
-				/* data */
-			public:
-				virtual const char *what() const throw();
-		}OutOfBoundsException;
 		Array<T>();
 		Array(unsigned int);
 		Array(const Array<T> &obj);
@@ -73,7 +67,7 @@ T &Array<T>::operator[](int index)
 {
 	// std::cout << "subscript operator" << std::endl;
 	if (index >= static_cast <int>(this->_n) || index < 0)
-		throw OutOfBoundsException;
+		throw OutOfBoundsException();
 	return (arr[index]);
 }
 
@@ -83,11 +77,11 @@ size_t Array<T>::size(void) const
 	return (static_cast <size_t> (_n));
 };
 
-template <class T>
-const char *Array<T>::OutOfBoundsException::what() const throw()
-{
-	return "OutOfBoundsException";
-}
+// template <class T>
+// const char *Array<T>::OutOfBoundsException::what() const throw()
+// {
+// 	return "OutOfBoundsException";
+// }
 
 template <class T>
 Array<T>::~Array()
