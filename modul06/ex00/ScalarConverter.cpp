@@ -144,14 +144,22 @@ void	intCase(const std::string &str)
 {
 	int nbr;
 
-	std::stringstream(str) >> nbr;
-	if (!isprint(nbr))
-		std::cout << "char:  Non displayable" << std::endl;
+	std::stringstream ssint(str);
+	ssint >> nbr;
+	if (!ssint.fail())
+	{
+		if (!isprint(nbr))
+			std::cout << "char:  Non displayable" << std::endl;
+		else
+			std::cout << "char: '"<< static_cast<char> (nbr)<< "'" << std::endl;
+		std::cout << "int: "<< nbr << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(1)<< static_cast<float> (nbr) << "f" << std::endl;
+		std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double> (nbr) << std::endl;
+	}
 	else
-		std::cout << "char: '"<< static_cast<char> (nbr)<< "'" << std::endl;
-	std::cout << "int: "<< nbr << std::endl;
-	std::cout << "float: " << std::fixed << std::setprecision(1)<< static_cast<float> (nbr) << "f" << std::endl;
-	std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double> (nbr) << std::endl;
+	{
+		std::cout << "[" << str <<  "] can't be represented to its type INT " << std::endl;
+	}
 }
 
 void	floatCase(std::string str)
@@ -159,28 +167,49 @@ void	floatCase(std::string str)
 	float nbrf;
 
 	str[str.size() - 1] = static_cast<int> ('\0');
-	std::stringstream(str) >> nbrf;
-	if (!isprint(static_cast<int> (nbrf)))
-		std::cout << "char:  Non displayable" << std::endl;
+	std::stringstream ssfloat(str);
+	ssfloat >> nbrf;
+	if (!ssfloat.fail())
+	{
+		if (!isprint(static_cast<int> (nbrf)))
+			std::cout << "char:  Non displayable" << std::endl;
+		else 
+			std::cout << "char: '"<< static_cast<char> (nbrf)<< "'" << std::endl;
+		if (nbrf - static_cast<int> (nbrf)  >= 1 || nbrf - static_cast<int> (nbrf) <= -1)
+			std::cout << "int: imposible (Overflow)" << std::endl;
+		else
+			std::cout << "int: "<< static_cast<int> (nbrf) << std::endl;
+		std::cout << "float: " << std::fixed << std::setprecision(2) <<  nbrf << "f" << std::endl;
+		std::cout << "double: " << std::fixed << std::setprecision(2) << static_cast<double> (nbrf) << std::endl;
+	}
 	else
-		std::cout << "char: '"<< static_cast<char> (nbrf)<< "'" << std::endl;
-	std::cout << "int: "<< static_cast<int> (nbrf) << std::endl;
-	std::cout << "float: " << std::fixed << std::setprecision(2) <<  nbrf << "f" << std::endl;
-	std::cout << "double: " <<  static_cast<double> (nbrf) << std::endl;
+		std::cout << "[" << str <<  "] can't be represented to its type FLOAT " << std::endl;
 }
 
 void	doubleCase(const std::string &str)
 {
 	double nbrd;
 
-	std::stringstream(str) >> nbrd;
-	if (!isprint(static_cast<int> (nbrd)))
-		std::cout << "char:  Non displayable" << std::endl;
+	std::stringstream ssdouble(str);
+	ssdouble >> nbrd;
+	if (!ssdouble.fail())
+	{
+		if (!isprint(static_cast<int> (nbrd)))
+			std::cout << "char:  Non displayable" << std::endl;
+		else
+			std::cout << "char: '"<< static_cast<char> (nbrd)<< "'" << std::endl;
+		if (nbrd - static_cast<int> (nbrd)  >= 1 || nbrd - static_cast<int> (nbrd) <= -1)
+			std::cout << "int: imposible (Overflow)" << std::endl;
+		else
+			std::cout << "int: "<< static_cast<int> (nbrd) << std::endl;
+		if (nbrd - static_cast<float> (nbrd)  > 1 || nbrd - static_cast<float> (nbrd) < -1)
+			std::cout << "float: imposible (Overflow)" << std::endl;
+		else
+			std::cout << "float: " << std::fixed << std::setprecision(2)<< static_cast<float> (nbrd) << "f" << std::endl;
+		std::cout << "double: " << std::fixed << std::setprecision(2) << nbrd << std::endl;
+	}
 	else
-		std::cout << "char: '"<< static_cast<char> (nbrd)<< "'" << std::endl;
-	std::cout << "int: "<< static_cast<int> (nbrd) << std::endl;
-	std::cout << "float: " << std::fixed << std::setprecision(2)<< static_cast<float> (nbrd) << "f" << std::endl;
-	std::cout << "double: " << std::fixed << std::setprecision(2) << nbrd << std::endl;
+		std::cout << "[" << str <<  "] can't be represented to its type DOUBLE " << std::endl;
 }
 
 void	degitsOrCharCase(const std::string &str, const int dataType)
