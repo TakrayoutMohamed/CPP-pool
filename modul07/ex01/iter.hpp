@@ -3,8 +3,8 @@
 # include <iostream>
 # include "NullException.hpp"
 
-template <typename T>
-void	iter(T *array, int len, void (*fun)(T &))
+template <typename T, typename Y>
+void	iter(T *array, int len, void (*fun)(Y &))
 {
 	int	i;
 

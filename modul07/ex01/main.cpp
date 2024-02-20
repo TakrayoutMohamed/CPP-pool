@@ -14,8 +14,6 @@ void toUpper(std::string &member)
 	}
 }
 
-template void printMember<int> (int &nbr);
-template void printMember<std::string>(std::string &str);
 
 void updatePlusOne(int &nbr)
 {
@@ -29,7 +27,7 @@ int main(void)
 		std::cout <<"'''''''''''int case'''''''''" << std::endl;
 		int array[] = {2, 5,1};
 		std::cout << "************* befor updatePlusOne ************" << std::endl;
-		iter<int>(array, 3, printMember<int>);
+		iter<int>(array, 3, printMember<const int>);
 		iter<int>(array, 3, updatePlusOne);
 		std::cout << "************* after updatePlusOne ************" << std::endl;
 		iter<int>(array, 3, printMember<int>);
@@ -38,7 +36,7 @@ int main(void)
 		std::cout <<"'''''''''''string case'''''''''" << std::endl;
 		std::string arrayString[] = {"alvares", "negredo", "eleven"};
 		std::cout << "************* befor toUpper ************" << std::endl;
-		iter<std::string>(arrayString, 3, printMember<std::string>);
+		iter<std::string>(arrayString, 3, printMember<const std::string>);
 		iter<std::string>(arrayString, 3, toUpper);
 		std::cout << "************* after toUpper ************" << std::endl;
 		iter<std::string>(arrayString, 3, printMember<std::string>);
