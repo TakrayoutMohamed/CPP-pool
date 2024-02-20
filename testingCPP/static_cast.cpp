@@ -1,5 +1,7 @@
 #include <iostream>
-
+class Base {};
+class Derived : public Base {};
+class MyClass {};
 int main(void)
 {
 	int a = 16;
@@ -7,14 +9,20 @@ int main(void)
 	float f = 4.77f;
 
 	/*******************************************************************************************/
-	int  b = static_cast<int>(f);
-	std::cout << " cast from float f: " << f << " to int with static_cast  : " << b << std::endl;
-	float ff = static_cast<float>(b);
-	std::cout << " cast from int b: " << b << " to float with static_cast  : " << ff << std::endl;
-	int bb = f;
-	std::cout << " cast from float f: " << f << " to int without static cast  : " << bb << std::endl;
-	float FF = b;
-	std::cout << " cast from int b: " << b << " to float without static_cast  : " << FF << std::endl;
+	// Derived* d = new Derived;
+	// Base* b = new Base;
+	// b = static_cast<Base*>(d); // this line will work properly
+	// d = static_cast<Base*>(b); // ERROR will be generated during compilation upcasting
+	// MyClass* x = static_cast<MyClass*>(d); // ERROR will be generated during compilation
+	/*******************************************************************************************/
+	// int  b = static_cast<int>(f);
+	// std::cout << " cast from float f: " << f << " to int with static_cast  : " << b << std::endl;
+	// float ff = static_cast<float>(b);
+	// std::cout << " cast from int b: " << b << " to float with static_cast  : " << ff << std::endl;
+	// int bb = f;
+	// std::cout << " cast from float f: " << f << " to int without static cast  : " << bb << std::endl;
+	// float FF = b;
+	// std::cout << " cast from int b: " << b << " to float without static_cast  : " << FF << std::endl;
 	/*******************************************************************************************/
 	// int castedCharToInt1 = (int) c;
 	// int castedCharToInt2 = static_cast <int> (c);
@@ -36,5 +44,6 @@ int main(void)
 	// ref = 6;
 	/*******************************************************************************************/
 	// std::cout << "int a : "<< a << std::endl;
+
 	return (0);
 }
