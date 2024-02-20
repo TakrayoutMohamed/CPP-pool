@@ -11,11 +11,11 @@ class Array
 		T *arr;
 		unsigned int _n;
 	public :
-		Array<T>();
+		Array();
 		Array(unsigned int);
 		Array(const Array<T> &obj);
 		const Array<T> &operator=(const Array<T> &obj);
-		T &operator[](int index);
+		T &operator[](const int &index) const;
 		/*membeer functions*/
 		size_t	size(void) const;
 		~Array();
@@ -33,14 +33,14 @@ Array<T>::Array(unsigned int n) : _n(n)
 {
 	// std::cout << "Constructor(unsigned int)" << std::endl;
 	arr = new T[_n];
-};
+}
 
 template <class T>
 Array<T>::Array(const Array<T> &obj) : arr(NULL)
 {
 	// std::cout << "Copy constructor" << std::endl;
 	*this = obj;
-};
+}
 
 template<class T>
 const Array<T> &Array<T>::operator=(const Array<T> &obj)
@@ -60,10 +60,10 @@ const Array<T> &Array<T>::operator=(const Array<T> &obj)
 		}
 	}
 	return (*this);
-};
+}
 
 template<class T>
-T &Array<T>::operator[](int index)
+T &Array<T>::operator[](const int &index) const
 {
 	// std::cout << "subscript operator" << std::endl;
 	if (index >= static_cast <int>(this->_n) || index < 0)
@@ -75,13 +75,7 @@ template <class T>
 size_t Array<T>::size(void) const
 {
 	return (static_cast <size_t> (_n));
-};
-
-// template <class T>
-// const char *Array<T>::OutOfBoundsException::what() const throw()
-// {
-// 	return "OutOfBoundsException";
-// }
+}
 
 template <class T>
 Array<T>::~Array()
