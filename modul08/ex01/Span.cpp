@@ -21,6 +21,8 @@ const Span &Span::operator=(const Span &obj)
 {
 	if (&obj != this)
 	{
+		if (!this->vect.empty())
+			vect.clear();
 		this->vect = obj.vect;
 	}
 	return (*this);
@@ -37,21 +39,6 @@ void Span::addNumber(const int nbr)
 		return;
 	// 	throw OutOfSizeException;
 	this->vect.push_back(nbr);
-}
-void Span::addManyNumbers(const unsigned int nbr)
-{
-	srand(time(0));
-	// if (this->spanSize == this->vect.size())
-	// 	throw OutOfSizeException;
-	// if (this->spanSize + this->vect.size() > nbr)
-	// 	throw OutOfSizeException;
-	unsigned int i = 0;
-	while (i < nbr)
-	{
-		addNumber(rand() % 200);
-		i++;
-	}
-
 }
 
 int Span::shortestSpan()
