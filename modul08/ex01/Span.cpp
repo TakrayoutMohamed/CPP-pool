@@ -1,8 +1,5 @@
 #include "./Span.hpp"
-Span::Span()
-{
-
-}
+Span::Span(){ }
 
 Span::Span(const Span &obj)
 {
@@ -12,10 +9,7 @@ Span::Span(const Span &obj)
 	}
 }
 
-Span::Span(const unsigned int nbr) : spanSize(nbr)
-{
-
-}
+Span::Span(const unsigned int nbr) : spanSize(nbr) { }
 
 const Span &Span::operator=(const Span &obj)
 {
@@ -23,29 +17,37 @@ const Span &Span::operator=(const Span &obj)
 	{
 		if (!this->vect.empty())
 			vect.clear();
+		this->spanSize = obj.spanSize;
 		this->vect = obj.vect;
 	}
 	return (*this);
 }
-Span::~Span()
-{
+Span::~Span() { }
 
+/*method exception start*************************/
+const char *Span::NoSpanCanBeFoundException::what() const throw()
+{
+	return ("NoSpanCanBeFoundException");
 }
 
+const char *Span::OutOfSizeException::what() const throw()
+{
+	return ("OutOfSizeException");
+}
+/*method exception end*************************/
 /*method functions*/
 void Span::addNumber(const int nbr)
 {
 	if (this->spanSize == this->vect.size())
-		return;
-	// 	throw OutOfSizeException;
+		throw OutOfSizeException;
 	this->vect.push_back(nbr);
 }
 
 int Span::shortestSpan()
 {
 	int shortSpan;
-	// if (this->vect.size() <= 1)
-	// 	throw NoSpanCanBeFoundException;
+	if (this->vect.size() <= 1)
+		throw NoSpanCanBeFoundException;
 	std::sort(this->vect.begin(), this->vect.end());
 	shortSpan = this->longestSpan();
 	std::vector<int>::iterator it = ++vect.begin();
