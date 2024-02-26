@@ -16,6 +16,7 @@ int main(void)
     vect.push_back(8);
     vect.push_back(4);
 
+    std::cout << "distance between the first and the last is : " << std::distance(vect.end(), vect.begin());
     for (std::vector<int>::iterator it = vect.begin() ;it != vect.end(); it++)
     {
         std::cout << *it << "  ";
@@ -38,7 +39,6 @@ int main(void)
         std::cout << *it << "  ";
     }
     std::cout << std::endl;
-    std::cout << "distance between the first and the last is : " << std::distance(vect.begin(), --vect.end());
 
     return (0);
 }
