@@ -4,7 +4,9 @@ int	main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		std::cout << "the number of args should be 2" << std::endl;
+		std::cerr << "Error : " << std::endl;
+		std::cerr << "the number of args not compatible : " << std::endl;
+		std::cerr << "Exemple : ./btc filename" << std::endl;
 		return (1);
 	}
 	
