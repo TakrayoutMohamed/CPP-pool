@@ -20,7 +20,7 @@ const BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &obj)
     std::cout << "copy assignment operator BitcoinExchange" << std::endl;
     if (this != &obj)
     {
-        this->_data = obj.data;
+        this->_data = obj._data;
     }
     return (*this);
 }
@@ -34,19 +34,19 @@ BitcoinExchange::~BitcoinExchange()
 void	BitcoinExchange::openFile(const char *file)
 {
     this->_currentFile.open(file);
-    if (!is_open(_currentFile))
+    if (!_currentFile.is_open())
         throw CouldNotOpenFileException;
 }
 
 const std::string	&BitcoinExchange::readline(char delim)
 {
-    return (std::getline(_currentFile, this->line, delim));
+    return (std::getline(_currentFile, this->_line, delim));
 }
 
 /*if the first line not "date | value" return false*/
 bool    BitcoinExchange::checkFirstLine(const std::string &firstLine) const
 {
-    return (!str.compare("date | value"));
+    return (!firstLine.compare("date | value"));
 }
 
 /*to help for the checkOtherLines function : checking the format of the value is it valid*/
@@ -54,10 +54,10 @@ bool isValidValueFormat(const std::string &lineData, int &index)
 {
     if (lineData[index] == '+' || lineData[index] == '-')
         index++;
-    while (is_digit(static_cast<int> (lineData[index])))
+    while (isdigit(static_cast<int> (lineData[index])))
         index++;
-    if (lineData[index] != '\0' && !is_space(static_cast<int> (lineData[index])))
-        return (false)
+    if (lineData[index] != '\0' && !isspace(static_cast<int> (lineData[index])))
+        return (false);
     return (true);
 }
 
@@ -66,13 +66,13 @@ bool isValidDateFormat(std::string const lineData, int &index)
     int j;
 
     j = 0;
-    while (lineData[index] != '\0' && !is_space(static_cast<int> (lineData[index])))
+    while (lineData[index] != '\0' && !isspace(static_cast<int> (lineData[index])))
     {
         if (j == 10)
             break;
         if (j != 3 && j != 6)
         {
-            if (is_diget(static_cast<int>(lineData[index])) == false)
+            if (isdigit(static_cast<int>(lineData[index])) == false)
                 return (false);
         }
         else if (lineData[index] != '-')
@@ -80,14 +80,14 @@ bool isValidDateFormat(std::string const lineData, int &index)
         index++;
         j++;
     }
-    if (!is_space(static_cast<int> (lineData[index])) && lineData[index] != '|')
+    if (!isspace(static_cast<int> (lineData[index])) && lineData[index] != '|')
         return (false);
     return (true);
 }
 
 void skipSpaces(const std::string &lineData, int &index)
 {
-    while (is_space(static_cast<int> (lineData[index])))
+    while (isspace(static_cast<int> (lineData[index])))
         index++;
 }
 
@@ -115,7 +115,8 @@ bool	BitcoinExchange::checkOtherLines(const std::string &lineData) const
 
 std::istringstream	&BitcoinExchange::pushLineToStream(const std::string &line)
 {
-    return (this->_stringStream.str(line));
+    this->_stringStream.str(line);
+    return (this->_stringStream);
 }
 
 void    BitcoinExchange::spliteLineByPipe()

@@ -2,17 +2,18 @@
 # define BITCOINEXCHANGE_HPP
 # include <iostream>
 # include <string>
-# include <istringstream>
+// # include <istringstream>
 # include <sstream>
 # include <algorithm>
+# include <cstdlib>
 # include <queue>
-# include <pair>
+// # include <pair>
 
 class BitcoinExchange
 {
 	private:
 
-		std::ostream								_currentFile; //stream to read from the file
+		std::fstream								_currentFile; //stream to read from the file
 		std::string 								_line; //used to store the data extracted by getline 
 		std::queue<std::pair<std::string, int> >	_data; // the data from the file will be stored here as pair (string , int)
 		std::string									_date;
