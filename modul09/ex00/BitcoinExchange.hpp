@@ -7,6 +7,7 @@
 # include <algorithm>
 # include <cstdlib>
 # include <queue>
+# include <exception>
 // # include <pair>
 
 class BitcoinExchange
