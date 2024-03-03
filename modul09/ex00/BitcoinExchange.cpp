@@ -29,7 +29,12 @@ BitcoinExchange::~BitcoinExchange()
 {
 
 }
-
+/************************************start exceptions**********************************/
+const char *BitcoinExchange::CouldNotOpenFileException::what() const throw()
+{
+    return ("CouldNotOpenFileException");
+}
+/************************************end exceptions************************************/
 /*************************************member functions start here **************************************/
 void	BitcoinExchange::openFile(const char *file)
 {
@@ -40,7 +45,8 @@ void	BitcoinExchange::openFile(const char *file)
 
 const std::string	&BitcoinExchange::readline(char delim)
 {
-    return (std::getline(_currentFile, this->_line, delim));
+    std::getline(_currentFile, this->_line, delim);
+    return (this->_line);
 }
 
 /*if the first line not "date | value" return false*/
