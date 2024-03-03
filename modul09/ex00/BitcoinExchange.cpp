@@ -27,7 +27,7 @@ const BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &obj)
 
 BitcoinExchange::~BitcoinExchange()
 {
-
+    std::cout << "Destructor BitcoinExchange" << std::endl;
 }
 /************************************start exceptions**********************************/
 const char *BitcoinExchange::CouldNotOpenFileException::what() const throw()
