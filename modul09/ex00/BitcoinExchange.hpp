@@ -35,7 +35,7 @@ class BitcoinExchange
 
 	private :/*member function*/
 		void				openFile(const char *file);
-		const std::string	&readline(char delim);
+		const std::string	&readLine(char delim);
 		// if first line return false the programe should quite
 		bool				checkFirstLine(const std::string &firstLine) const;
 		// if return false set to the string "Error bad input"
