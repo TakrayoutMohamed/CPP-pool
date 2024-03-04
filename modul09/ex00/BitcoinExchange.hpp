@@ -8,6 +8,7 @@
 # include <cstdlib>
 # include <queue>
 # include <exception>
+# include <ctime>
 // # include <pair>
 
 class BitcoinExchange
@@ -19,7 +20,7 @@ class BitcoinExchange
 		std::queue<std::pair<std::string, int> >	_data; // the data from the file will be stored here as pair (string , int)
 		std::string									_date;
 		std::string									_exchangeValue;
-		std::istringstream							_stringStream;
+		std::istringstream							_istringStream;
 	public:
 		BitcoinExchange(/* args */);
 		BitcoinExchange(const BitcoinExchange &obj);
@@ -42,8 +43,10 @@ class BitcoinExchange
 		bool				checkOtherLines(const std::string &lineData) const;
 		std::istringstream	&pushLineToStream(const std::string &line);
 		void				spliteLineByPipe();
-
-
+		bool				checkIsDateValid();
+		bool				checkIsExchangeValid();
+	public : /*member functions*/
+		void testAllFunctions(const char *);
 
 		
 };

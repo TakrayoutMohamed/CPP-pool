@@ -60,6 +60,12 @@ bool isValidValueFormat(const std::string &lineData, int &index)
 {
 	if (lineData[index] == '+' || lineData[index] == '-')
 		index++;
+	if (!isdigit(static_cast<int> (lineData[index])))
+		return (false);
+	while (isdigit(static_cast<int> (lineData[index])))
+		index++;
+	if (lineData[index] == '.' && isdigit(static_cast<int> (lineData[index + 1])))
+		index++;
 	while (isdigit(static_cast<int> (lineData[index])))
 		index++;
 	if (lineData[index] != '\0' && !isspace(static_cast<int> (lineData[index])))
@@ -74,9 +80,7 @@ bool isValidDateFormat(std::string const lineData, int &index)
 	j = 0;
 	while (lineData[index] != '\0' && !isspace(static_cast<int> (lineData[index])))
 	{
-		if (j == 10)
-			break;
-		if (j != 3 && j != 6)
+		if (j != 4 && j != 7)
 		{
 			if (isdigit(static_cast<int>(lineData[index])) == false)
 				return (false);
@@ -85,6 +89,8 @@ bool isValidDateFormat(std::string const lineData, int &index)
 			return (false);
 		index++;
 		j++;
+		if (j == 10)
+			break;
 	}
 	if (!isspace(static_cast<int> (lineData[index])) && lineData[index] != '|')
 		return (false);
@@ -111,6 +117,7 @@ bool	BitcoinExchange::checkOtherLines(const std::string &lineData) const
 		return (false);
 	else
 		index++;
+	skipSpaces(lineData, index);
 	if (!isValidValueFormat(lineData, index))
 		return (false);
 	skipSpaces(lineData, index);
@@ -121,22 +128,111 @@ bool	BitcoinExchange::checkOtherLines(const std::string &lineData) const
 
 std::istringstream	&BitcoinExchange::pushLineToStream(const std::string &line)
 {
-	this->_stringStream.str(line);
-	return (this->_stringStream);
+	this->_istringStream.str(line);
+	return (this->_istringStream);
 }
 
 void    BitcoinExchange::spliteLineByPipe()
 {
-	std::getline(this->_stringStream, this->_date, '|');
+	std::getline(this->_istringStream, this->_date, '|');
 	{
 		//check is the date values good by checking is the year makes sense 
 		// check is the month makes since 
 		// check is the day makes sense
 
 	}
-	std::getline(this->_stringStream, this->_exchangeValue, '|');
+	std::getline(this->_istringStream, this->_exchangeValue, '|');
 	{
 		//check is the value makes sense means is it positive , is it less than 1000
 	}
 }
+
+// bool	isBissextileYear(int year)
+// {
+// 	return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
+// }
+
+bool	isValidMonthDay(int year, int month, int day)
+{
+	std::tm tm;
+	std::time_t t;
+	tm.tm_year = year - 1900;
+	tm.tm_mon = month - 1;
+	tm.tm_mday = day;
+	t = std::mktime(&tm);
+	std::tm local = *std::localtime(&t);
+	if (local.tm_year != year - 1900)
+		return (false);
+	if (local.tm_mon != month - 1)
+		return (false);
+	if (local.tm_mday != day)
+		return (false);
+	return (true);
+}
+
+bool	isValidYear(int year)
+{
+	const std::time_t now = std::time(NULL);
+	const std::tm* localTime = std::localtime(&now);
+	return (year <= localTime->tm_year + 1900);
+}
+
+bool	BitcoinExchange::checkIsDateValid()
+{
+	// int year;
+	// int month;
+	// int day;
+
+	// std::stringstream dateStringStream;
+	// dateStringStream << this->_date;
+	// std::getline(dateStringStream, this->_date, '-');
+	// std::stringstream(_date) << year;
+	// std::getline(dateStringStream, this->_date, '-');
+	// std::stringstream(_date) << month;
+	// std::getline(dateStringStream, this->_date, '-');
+	// std::stringstream(_date) << day;
+	// if (!isValidYear(year))
+	// 	return (false);
+	// if (!isValidMonthDay(year, month, day))
+	// 	return (false);
+	return (true);
+}
+
+bool	BitcoinExchange::checkIsExchangeValid()
+{
+
+	return (true);
+}
 /***************************************member functions ends here***************************************/
+
+
+void BitcoinExchange::testAllFunctions(const char *arg)
+{
+	try
+	{
+		openFile(arg);
+		std::string line;
+		line = readLine('\n');
+		if ( ! checkFirstLine(line))
+		{
+			std::cout << "the first line should be : date | value" << std::endl;
+			return ;
+		}
+		std::cout << line << std::endl;
+		while (std::getline(_currentFile, this->_line, '\n'))
+		{
+			// std::cout << "the return of check other lines :" << checkOtherLines(_line) << std::endl;
+			if (!checkOtherLines(_line))
+			{
+				std::cout << "the other lines should be {yyyy-mm-dd | value} " ;
+			}
+			std::cout << _line << std::endl;
+			// line = readLine('\n');
+		}
+	} 
+	catch(std::exception &e)
+	{
+		std::cerr << " Error ocurred : " << e.what() << std::endl;
+	}
+
+}

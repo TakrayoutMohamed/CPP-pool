@@ -10,6 +10,7 @@ int	main(int argc, char **argv)
 		std::cerr << "Exemple : ./btc filename" << std::endl;
 		return (1);
 	}
-	
+	BitcoinExchange bitcoin;
+	bitcoin.testAllFunctions(argv[1]);
 	return (0);
 }
