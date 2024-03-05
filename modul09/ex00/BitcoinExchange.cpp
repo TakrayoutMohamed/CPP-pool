@@ -128,14 +128,18 @@ bool	BitcoinExchange::checkOtherLines(const std::string &lineData) const
 
 std::istringstream	&BitcoinExchange::pushLineToStream(const std::string &line)
 {
+	this->_istringStream.clear();
+	this->_istringStream.str("");
 	this->_istringStream.str(line);
 	return (this->_istringStream);
 }
 
 void    BitcoinExchange::spliteLineByPipe()
 {
+	pushLineToStream(_line);
 	std::getline(this->_istringStream, this->_date, '|');
 	{
+		std::cout << "date : [" << _date << "]" ;
 		//check is the date values good by checking is the year makes sense 
 		// check is the month makes since 
 		// check is the day makes sense
@@ -143,6 +147,7 @@ void    BitcoinExchange::spliteLineByPipe()
 	}
 	std::getline(this->_istringStream, this->_exchangeValue, '|');
 	{
+		std::cout << "[" << _exchangeValue << "]" << std::endl;
 		//check is the value makes sense means is it positive , is it less than 1000
 	}
 }
@@ -156,6 +161,16 @@ bool	isValidMonthDay(int year, int month, int day)
 {
 	std::tm tm;
 	std::time_t t;
+	const std::time_t now = std::time(NULL);
+	const std::tm* localTime = std::localtime(&now);
+
+	if (localTime->tm_year + 1900 == year)
+	{
+		if (month > localTime->tm_mon + 1)
+			return (false);
+		if(month == localTime->tm_mon + 1 && day > localTime->tm_mday)
+			return (false);
+	}
 	tm.tm_year = year - 1900;
 	tm.tm_mon = month - 1;
 	tm.tm_mday = day;
@@ -179,28 +194,53 @@ bool	isValidYear(int year)
 
 bool	BitcoinExchange::checkIsDateValid()
 {
-	// int year;
-	// int month;
-	// int day;
+	int year;
+	int month;
+	int day;
 
-	// std::stringstream dateStringStream;
-	// dateStringStream << this->_date;
-	// std::getline(dateStringStream, this->_date, '-');
-	// std::stringstream(_date) << year;
-	// std::getline(dateStringStream, this->_date, '-');
-	// std::stringstream(_date) << month;
-	// std::getline(dateStringStream, this->_date, '-');
-	// std::stringstream(_date) << day;
-	// if (!isValidYear(year))
-	// 	return (false);
-	// if (!isValidMonthDay(year, month, day))
-	// 	return (false);
+	std::stringstream dateStringStream;
+	dateStringStream << this->_date;
+	std::getline(dateStringStream, this->_date, '-');
+	std::stringstream(_date) >> year;
+	std::getline(dateStringStream, this->_date, '-');
+	std::stringstream(_date) >> month;
+	std::getline(dateStringStream, this->_date, '-');
+	std::stringstream(_date) >> day;
+	if (!isValidYear(year))
+	{
+		std::cout << "********Not valid year : " << year << std::endl;
+		return (false);
+	}
+	if (!isValidMonthDay(year, month, day))
+	{
+		std::cout << "*******Not valid month :" << month << " Not valid day :" <<  day << std::endl;
+		return (false);
+	}
 	return (true);
 }
 
 bool	BitcoinExchange::checkIsExchangeValid()
 {
+	float	exchangeRate;
 
+	std::stringstream exchangeStringStream;
+	exchangeStringStream << this->_exchangeValue;
+	exchangeStringStream >> exchangeRate;
+	if (exchangeStringStream.fail())
+	{
+		std::cout << "##################### Not valid nbr exchange rate = " << exchangeRate << " exchangeValue :" << _exchangeValue << std::endl;
+		return (false);
+	}
+	if (exchangeRate < 0)
+	{
+		std::cout << "##################### Negativ exchange rate = " << exchangeRate << std::endl;
+		return (false);
+	}
+	if (exchangeRate > 1000)
+	{
+		std::cout << "##################### Big exchange rate = " << exchangeRate << std::endl;
+		return (false);
+	}
 	return (true);
 }
 /***************************************member functions ends here***************************************/
@@ -224,15 +264,18 @@ void BitcoinExchange::testAllFunctions(const char *arg)
 			// std::cout << "the return of check other lines :" << checkOtherLines(_line) << std::endl;
 			if (!checkOtherLines(_line))
 			{
-				std::cout << "the other lines should be {yyyy-mm-dd | value} " ;
+				std::cout << "the other lines should be {yyyy-mm-dd | value} ";
 			}
 			std::cout << _line << std::endl;
+			spliteLineByPipe();
+			checkIsDateValid();
+			checkIsExchangeValid();
 			// line = readLine('\n');
 		}
 	} 
 	catch(std::exception &e)
 	{
-		std::cerr << " Error ocurred : " << e.what() << std::endl;
+		std::cerr << " Error occurred : " << e.what() << std::endl;
 	}
 
 }
