@@ -20,7 +20,7 @@ const BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &obj)
 	std::cout << "copy assignment operator BitcoinExchange" << std::endl;
 	if (this != &obj)
 	{
-		this->_data = obj._data;
+		this->_database = obj._database;
 	}
 	return (*this);
 }
@@ -33,6 +33,11 @@ BitcoinExchange::~BitcoinExchange()
 const char *BitcoinExchange::CouldNotOpenFileException::what() const throw()
 {
 	return ("CouldNotOpenFileException");
+}
+
+const char *BitcoinExchange::CouldNotOpenDatabaseException::what() const throw()
+{
+	return ("CouldNotOpenDatabaseException");
 }
 /************************************end exceptions************************************/
 /*************************************member functions start here **************************************/
@@ -134,7 +139,7 @@ std::istringstream	&BitcoinExchange::pushLineToStream(const std::string &line)
 	return (this->_istringStream);
 }
 
-void    BitcoinExchange::spliteLineByPipe()
+void    BitcoinExchange::spliteLineToDateExchangeRate()
 {
 	pushLineToStream(_line);
 	std::getline(this->_istringStream, this->_date, '|');
@@ -219,7 +224,7 @@ bool	BitcoinExchange::checkIsDateValid()
 	return (true);
 }
 
-bool	BitcoinExchange::checkIsExchangeValid()
+bool	BitcoinExchange::checkIsExchangeValid() const
 {
 	float	exchangeRate;
 
@@ -243,6 +248,38 @@ bool	BitcoinExchange::checkIsExchangeValid()
 	}
 	return (true);
 }
+
+int convertStringToInt(const std::string &str)
+{
+	std::stringstream ss;
+	ss << str;
+	int nbr;
+	ss >> nbr;
+	return (nbr);
+}
+
+void				BitcoinExchange::storeDatabaseData(const std::string &databaseFile)
+{
+	std::ifstream database;
+	std::string data;
+	std::string key;
+	std::string value;
+	database.open(databaseFile);
+	if (!database.is_open())
+		throw CouldNotOpenDatabaseException;
+	database >> data;
+	while (database >> data)
+	{
+		std::stringstream sstreamLine;
+		sstreamLine << data;
+		std::getline(sstreamLine, key, ',');
+		std::getline(sstreamLine, value, ',');
+		std::cout << "key = |" << key << "| value = |" << value << "|" << std::endl;
+		this->_database[key] = convertStringToInt(value);
+	}
+	database.close();
+	std::cout << "the size of the data base is :" << _database.size() << std::endl;
+}
 /***************************************member functions ends here***************************************/
 
 
@@ -250,10 +287,12 @@ void BitcoinExchange::testAllFunctions(const char *arg)
 {
 	try
 	{
+		storeDatabaseData("data.csv");
+		exit(1);
 		openFile(arg);
 		std::string line;
 		line = readLine('\n');
-		if ( ! checkFirstLine(line))
+		if (!checkFirstLine(line))
 		{
 			std::cout << "the first line should be : date | value" << std::endl;
 			return ;
@@ -267,7 +306,7 @@ void BitcoinExchange::testAllFunctions(const char *arg)
 				std::cout << "the other lines should be {yyyy-mm-dd | value} ";
 			}
 			std::cout << _line << std::endl;
-			spliteLineByPipe();
+			spliteLineToDateExchangeRate();
 			checkIsDateValid();
 			checkIsExchangeValid();
 			// line = readLine('\n');
@@ -277,5 +316,6 @@ void BitcoinExchange::testAllFunctions(const char *arg)
 	{
 		std::cerr << " Error occurred : " << e.what() << std::endl;
 	}
-
+	if (this->_currentFile.is_open())
+		this->_currentFile.close();
 }

@@ -6,7 +6,7 @@
 # include <sstream>
 # include <algorithm>
 # include <cstdlib>
-# include <queue>
+# include <map>
 # include <exception>
 # include <ctime>
 // # include <pair>
@@ -17,7 +17,7 @@ class BitcoinExchange
 
 		std::ifstream								_currentFile; //stream to read from the file
 		std::string 								_line; //used to store the data extracted by getline 
-		std::queue<std::pair<std::string, int> >	_data; // the data from the file will be stored here as pair (string , int)
+		std::map<std::string, int, std::less<std::string> >	_database; // the data from the database will be stored here as pair (string , int)
 		std::string									_date;
 		std::string									_exchangeValue;
 		std::istringstream							_istringStream;
@@ -32,6 +32,12 @@ class BitcoinExchange
 			public:
 				virtual const char *what() const throw();
 		}CouldNotOpenFileException;
+		
+		class CouldNotOpenDatabaseException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		}CouldNotOpenDatabaseException;
 		/************************************end exceptions************************************/
 
 	private :/*member function*/
@@ -42,9 +48,11 @@ class BitcoinExchange
 		// if return false set to the string "Error bad input"
 		bool				checkOtherLines(const std::string &lineData) const;
 		std::istringstream	&pushLineToStream(const std::string &line);
-		void				spliteLineByPipe();
+		void				spliteLineToDateExchangeRate();
 		bool				checkIsDateValid();
-		bool				checkIsExchangeValid();
+		bool				checkIsExchangeValid() const;
+		void				storeDatabaseData(const std::string &databaseFile);
+
 	public : /*member functions*/
 		void testAllFunctions(const char *);
 
