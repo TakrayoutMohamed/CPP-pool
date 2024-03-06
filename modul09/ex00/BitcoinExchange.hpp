@@ -17,7 +17,7 @@ class BitcoinExchange
 
 		std::ifstream								_currentFile; //stream to read from the file
 		std::string 								_line; //used to store the data extracted by getline 
-		std::map<std::string, int, std::less<std::string> >	_database; // the data from the database will be stored here as pair (string , int)
+		std::map<std::string, float, std::less<std::string> >	_database; // the data from the database will be stored here as pair (string , int)
 		std::string									_date;
 		std::string									_exchangeValue;
 		std::istringstream							_istringStream;

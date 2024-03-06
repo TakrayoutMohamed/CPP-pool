@@ -203,14 +203,15 @@ bool	BitcoinExchange::checkIsDateValid()
 	int month;
 	int day;
 
+	std::string tmp = this->_date;
 	std::stringstream dateStringStream;
-	dateStringStream << this->_date;
-	std::getline(dateStringStream, this->_date, '-');
-	std::stringstream(_date) >> year;
-	std::getline(dateStringStream, this->_date, '-');
-	std::stringstream(_date) >> month;
-	std::getline(dateStringStream, this->_date, '-');
-	std::stringstream(_date) >> day;
+	dateStringStream << tmp;
+	std::getline(dateStringStream, tmp, '-');
+	std::stringstream(tmp) >> year;
+	std::getline(dateStringStream, tmp, '-');
+	std::stringstream(tmp) >> month;
+	std::getline(dateStringStream, tmp, '-');
+	std::stringstream(tmp) >> day;
 	if (!isValidYear(year))
 	{
 		std::cout << "********Not valid year : " << year << std::endl;
@@ -249,11 +250,11 @@ bool	BitcoinExchange::checkIsExchangeValid() const
 	return (true);
 }
 
-int convertStringToInt(const std::string &str)
+float convertStringToFloat(const std::string &str)
 {
 	std::stringstream ss;
 	ss << str;
-	int nbr;
+	float nbr;
 	ss >> nbr;
 	return (nbr);
 }
@@ -274,21 +275,34 @@ void				BitcoinExchange::storeDatabaseData(const std::string &databaseFile)
 		sstreamLine << data;
 		std::getline(sstreamLine, key, ',');
 		std::getline(sstreamLine, value, ',');
-		std::cout << "key = |" << key << "| value = |" << value << "|" << std::endl;
-		this->_database[key] = convertStringToInt(value);
+		// std::cout << "key = |" << key << "| value = |" << value << "|" << std::endl;
+		this->_database[key] = convertStringToFloat(value);
+		// std::cout << "key = |" << this->_database[key] << "| value = |" << "" << "|" << std::endl;
 	}
 	database.close();
-	std::cout << "the size of the data base is :" << _database.size() << std::endl;
+	// std::cout << "the size of the data base is :" << _database.size() << std::endl;
 }
 /***************************************member functions ends here***************************************/
 
+void printMap(const std::map<std::string, float> data)
+{
+	for (std::map<std::string, float>::const_iterator it = data.begin(); it != data.end(); ++it)
+		std::cout <<"key = |" <<  it->first << "| value = |" << it->second << "|; " << std::endl;
+}
+
+void	removeSpacesFromString(std::string &str)
+{
+	while (std::find(str.begin(), str.end(), ' ') != str.end())
+	{
+		str.erase(std::find(str.begin(), str.end(), ' '));
+	}
+}
 
 void BitcoinExchange::testAllFunctions(const char *arg)
 {
 	try
 	{
 		storeDatabaseData("data.csv");
-		exit(1);
 		openFile(arg);
 		std::string line;
 		line = readLine('\n');
@@ -309,7 +323,9 @@ void BitcoinExchange::testAllFunctions(const char *arg)
 			spliteLineToDateExchangeRate();
 			checkIsDateValid();
 			checkIsExchangeValid();
-			// line = readLine('\n');
+			std::cout << "date: |" << _date << "|" << std::endl;
+			removeSpacesFromString(_date);
+			std::cout << "date: |" << _date << "|" << std::endl;
 		}
 	} 
 	catch(std::exception &e)
