@@ -143,24 +143,8 @@ void    BitcoinExchange::spliteLineToDateExchangeRate()
 {
 	pushLineToStream(_line);
 	std::getline(this->_istringStream, this->_date, '|');
-	{
-		std::cout << "date : [" << _date << "]" ;
-		//check is the date values good by checking is the year makes sense 
-		// check is the month makes since 
-		// check is the day makes sense
-
-	}
 	std::getline(this->_istringStream, this->_exchangeValue, '|');
-	{
-		std::cout << "[" << _exchangeValue << "]" << std::endl;
-		//check is the value makes sense means is it positive , is it less than 1000
-	}
 }
-
-// bool	isBissextileYear(int year)
-// {
-// 	return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
-// }
 
 bool	isValidMonthDay(int year, int month, int day)
 {
@@ -212,14 +196,9 @@ bool	BitcoinExchange::checkIsDateValid()
 	std::stringstream(tmp) >> month;
 	std::getline(dateStringStream, tmp, '-');
 	std::stringstream(tmp) >> day;
-	if (!isValidYear(year))
+	if (!isValidYear(year) || !isValidMonthDay(year, month, day))
 	{
-		std::cout << "********Not valid year : " << year << std::endl;
-		return (false);
-	}
-	if (!isValidMonthDay(year, month, day))
-	{
-		std::cout << "*******Not valid month :" << month << " Not valid day :" <<  day << std::endl;
+		std::cerr << "Error : bad date input => " << this->_date << std::endl;
 		return (false);
 	}
 	return (true);
@@ -234,17 +213,17 @@ bool	BitcoinExchange::checkIsExchangeValid() const
 	exchangeStringStream >> exchangeRate;
 	if (exchangeStringStream.fail())
 	{
-		std::cout << "##################### Not valid nbr exchange rate = " << exchangeRate << " exchangeValue :" << _exchangeValue << std::endl;
+		std::cerr << "Error: not in a foat numbers range => " << _exchangeValue << std::endl;
 		return (false);
 	}
 	if (exchangeRate < 0)
 	{
-		std::cout << "##################### Negativ exchange rate = " << exchangeRate << std::endl;
+		std::cerr << "Error: not a positive number =>" << exchangeRate << std::endl;
 		return (false);
 	}
 	if (exchangeRate > 1000)
 	{
-		std::cout << "##################### Big exchange rate = " << exchangeRate << std::endl;
+		std::cerr << "Error: too large number => " << exchangeRate << std::endl;
 		return (false);
 	}
 	return (true);
@@ -275,12 +254,9 @@ void				BitcoinExchange::storeDatabaseData(const std::string &databaseFile)
 		sstreamLine << data;
 		std::getline(sstreamLine, key, ',');
 		std::getline(sstreamLine, value, ',');
-		// std::cout << "key = |" << key << "| value = |" << value << "|" << std::endl;
 		this->_database[key] = convertStringToFloat(value);
-		// std::cout << "key = |" << this->_database[key] << "| value = |" << "" << "|" << std::endl;
 	}
 	database.close();
-	// std::cout << "the size of the data base is :" << _database.size() << std::endl;
 }
 /***************************************member functions ends here***************************************/
 
@@ -298,34 +274,58 @@ void	removeSpacesFromString(std::string &str)
 	}
 }
 
-void BitcoinExchange::testAllFunctions(const char *arg)
+float	result(std::map<std::string, float, std::greater<std::string> > &database, std::string &date, std::string &exchangeValue)
+{
+	std::map<std::string, float>::iterator mapIt;
+	mapIt = database.find(date);
+	if (mapIt != database.end())
+	{
+		return (mapIt->second * convertStringToFloat(exchangeValue));
+	}
+	else
+	{
+		mapIt = (database.lower_bound(date));
+		if (mapIt != database.end())
+			return (mapIt->second * convertStringToFloat(exchangeValue));
+		else
+		{
+			return (0.0f);
+		}
+	}
+
+}
+
+void BitcoinExchange::bitcoinExchange(const char *arg)
 {
 	try
 	{
+		std::string line;
+
 		storeDatabaseData("data.csv");
 		openFile(arg);
-		std::string line;
 		line = readLine('\n');
 		if (!checkFirstLine(line))
 		{
-			std::cout << "the first line should be : date | value" << std::endl;
+			std::cerr << "the first line should be : yyyy-mm-dd | positiveNumber" << std::endl;
+			this->_currentFile.close();
 			return ;
 		}
-		std::cout << line << std::endl;
 		while (std::getline(_currentFile, this->_line, '\n'))
 		{
-			// std::cout << "the return of check other lines :" << checkOtherLines(_line) << std::endl;
 			if (!checkOtherLines(_line))
 			{
-				std::cout << "the other lines should be {yyyy-mm-dd | value} ";
+				std::cerr << "Error : bad input => " << this->_line << std::endl;
+				continue ;
 			}
-			std::cout << _line << std::endl;
 			spliteLineToDateExchangeRate();
-			checkIsDateValid();
-			checkIsExchangeValid();
-			std::cout << "date: |" << _date << "|" << std::endl;
 			removeSpacesFromString(_date);
-			std::cout << "date: |" << _date << "|" << std::endl;
+			if (!checkIsDateValid())
+				continue ;
+			removeSpacesFromString(_exchangeValue);
+			if (!checkIsExchangeValid())
+				continue ;
+			std::cout << _date << " => " << _exchangeValue << " = " << result(_database, _date, _exchangeValue) << std::endl;
+			
 		}
 	} 
 	catch(std::exception &e)

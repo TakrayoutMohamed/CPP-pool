@@ -15,12 +15,12 @@ class BitcoinExchange
 {
 	private:
 
-		std::ifstream								_currentFile; //stream to read from the file
-		std::string 								_line; //used to store the data extracted by getline 
-		std::map<std::string, float, std::less<std::string> >	_database; // the data from the database will be stored here as pair (string , int)
-		std::string									_date;
-		std::string									_exchangeValue;
-		std::istringstream							_istringStream;
+		std::ifstream												_currentFile;
+		std::string 												_line;
+		std::map<std::string, float, std::greater<std::string> >	_database;
+		std::string													_date;
+		std::string													_exchangeValue;
+		std::istringstream											_istringStream;
 	public:
 		BitcoinExchange(/* args */);
 		BitcoinExchange(const BitcoinExchange &obj);
@@ -54,7 +54,7 @@ class BitcoinExchange
 		void				storeDatabaseData(const std::string &databaseFile);
 
 	public : /*member functions*/
-		void testAllFunctions(const char *);
+		void bitcoinExchange(const char *);
 
 		
 };

@@ -2,7 +2,6 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argv;
 	if (argc != 2)
 	{
 		std::cerr << "Error : " << std::endl;
@@ -11,6 +10,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	BitcoinExchange bitcoin;
-	bitcoin.testAllFunctions(argv[1]);
+	bitcoin.bitcoinExchange(argv[1]);
 	return (0);
 }
