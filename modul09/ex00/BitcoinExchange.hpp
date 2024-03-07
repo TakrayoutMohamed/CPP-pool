@@ -9,7 +9,6 @@
 # include <map>
 # include <exception>
 # include <ctime>
-// # include <pair>
 
 class BitcoinExchange
 {
@@ -21,10 +20,10 @@ class BitcoinExchange
 		std::string													_date;
 		std::string													_exchangeValue;
 		std::istringstream											_istringStream;
-	public:
-		BitcoinExchange(/* args */);
 		BitcoinExchange(const BitcoinExchange &obj);
 		const BitcoinExchange &operator=(const BitcoinExchange &obj);
+	public:
+		BitcoinExchange(/* args */);
 		~BitcoinExchange();
 		/************************************start exceptions**********************************/
 		class CouldNotOpenFileException : public std::exception

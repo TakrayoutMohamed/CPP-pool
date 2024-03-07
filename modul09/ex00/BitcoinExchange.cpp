@@ -3,12 +3,12 @@
 
 BitcoinExchange::BitcoinExchange(/* args */)
 {
-	std::cout << "Default constructor BitcoinExchange" << std::endl;
+	// std::cout << "Default constructor BitcoinExchange" << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj)
 {
-	std::cout << "Copy constructor BitcoinExchange" << std::endl;
+	// std::cout << "Copy constructor BitcoinExchange" << std::endl;
 	if (this != &obj)
 	{
 		*this = obj;
@@ -17,7 +17,7 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &obj)
 
 const BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &obj)
 {
-	std::cout << "copy assignment operator BitcoinExchange" << std::endl;
+	// std::cout << "copy assignment operator BitcoinExchange" << std::endl;
 	if (this != &obj)
 	{
 		this->_database = obj._database;
@@ -27,7 +27,7 @@ const BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &obj)
 
 BitcoinExchange::~BitcoinExchange()
 {
-	std::cout << "Destructor BitcoinExchange" << std::endl;
+	// std::cout << "Destructor BitcoinExchange" << std::endl;
 }
 /************************************start exceptions**********************************/
 const char *BitcoinExchange::CouldNotOpenFileException::what() const throw()
@@ -218,12 +218,12 @@ bool	BitcoinExchange::checkIsExchangeValid() const
 	}
 	if (exchangeRate < 0)
 	{
-		std::cerr << "Error: not a positive number =>" << exchangeRate << std::endl;
+		std::cerr << "Error: not a positive number =>" << _exchangeValue << std::endl;
 		return (false);
 	}
 	if (exchangeRate > 1000)
 	{
-		std::cerr << "Error: too large number => " << exchangeRate << std::endl;
+		std::cerr << "Error: too large number => " << _exchangeValue << std::endl;
 		return (false);
 	}
 	return (true);
@@ -274,7 +274,7 @@ void	removeSpacesFromString(std::string &str)
 	}
 }
 
-float	result(std::map<std::string, float, std::greater<std::string> > &database, std::string &date, std::string &exchangeValue)
+double	result(std::map<std::string, float, std::greater<std::string> > &database, std::string &date, std::string &exchangeValue)
 {
 	std::map<std::string, float>::iterator mapIt;
 	mapIt = database.find(date);
@@ -324,7 +324,7 @@ void BitcoinExchange::bitcoinExchange(const char *arg)
 			removeSpacesFromString(_exchangeValue);
 			if (!checkIsExchangeValid())
 				continue ;
-			std::cout << _date << " => " << _exchangeValue << " = " << result(_database, _date, _exchangeValue) << std::endl;
+			std::cout << _date << " => " << _exchangeValue << " = "<< std::fixed << result(_database, _date, _exchangeValue) << std::endl;
 			
 		}
 	} 
