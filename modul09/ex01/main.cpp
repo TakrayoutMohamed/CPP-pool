@@ -9,5 +9,7 @@ int main(int argc, char **argv)
 		std::cerr << "Exemple : ./RPN arg" << std::endl;
 		return (1);
 	}
+	RPN rpn;
+	rpn.reversePolishNotation(argv[1]);
 	return (0);
 }
