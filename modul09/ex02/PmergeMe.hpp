@@ -34,8 +34,8 @@ class PmergeMe
 		int  convertStringToInt(const std::string str) const;
 		template <typename T>
 		void fillDataToContainer(std::queue<int> data, T &container);
-		/*member function that uses Vector*/
-		/*member function that uses List*/
+		/*sorting member functions that uses Vector */
+		/*sorting member functions that uses List*/
 		
 };
 
