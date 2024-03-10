@@ -40,6 +40,78 @@ const char *PmergeMe::OverflowException::what() const throw()
 /************************* Start member functions ***************************/
 
 
+
+//this one should be removed
+///
+///
+///
+///
+void printQue(std::queue<int> data) 
+{
+	if (data.empty())
+	{
+		std::cout << "the queue is empty" <<std::endl;
+		return ;
+	}
+	else
+		std::cout << "***********start printing the data of the queue" << std::endl;
+	while (!data.empty())
+	{
+		std::cout << data.front() << " ";
+		data.pop();
+	}
+	std::cout << std::endl;
+	std::cout << "***********end printing the data of the queue" << std::endl;
+}
+
+//this one should be removed
+///
+///
+///
+///
+void printVector(std::vector<int> data) 
+{
+	if (data.empty())
+	{
+		std::cout << "the vector is empty" <<std::endl;
+		return ;
+	}
+	else
+		std::cout << "***********start printing the data of the vector" << std::endl;
+	std::vector<int>::iterator it = data.begin();
+	while (it != data.end())
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << "***********end printing the data of the vector" << std::endl;
+}
+
+//this one should be removed
+///
+///
+///
+///
+void printList(std::list<int> data) 
+{
+	if (data.empty())
+	{
+		std::cout << "the list is empty" <<std::endl;
+		return ;
+	}
+	else
+		std::cout << "***********start printing the data of the list" << std::endl;
+	std::list<int>::iterator it = data.begin();
+	while (it != data.end())
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << "***********end printing the data of the list" << std::endl;
+}
+
 bool	PmergeMe::parseData(const char *str)
 {
 	if (!str || !*str)
@@ -56,7 +128,13 @@ bool	PmergeMe::parseData(const char *str)
 	}
 	try
 	{
-		fillDataQue(str);
+		std::queue<int> dataQueue;
+		fillDataQue(str, dataQueue);
+		fillDataToContainer<std::vector<int> >(dataQueue, dataVector);
+		fillDataToContainer<std::list<int> >(dataQueue, dataList);
+		// printQue(dataQueue);
+		// printVector(this->dataVector);
+		// printList(this->dataList);
 	}
 	catch (std::exception &e)
 	{
@@ -90,7 +168,7 @@ bool	PmergeMe::isAcceptedArgs(const char *str) const throw()
 	return (true);
 }
 
-void PmergeMe::fillDataQue(const char *strData)
+void PmergeMe::fillDataQue(const char *strData, std::queue<int> &dataQueue)
 {
 	std::stringstream tempsstream;
 	std::string strNbr;
@@ -119,3 +197,23 @@ int PmergeMe::convertStringToInt(const std::string str) const
     return (nbr);
 }
 /************************* End member functions *****************************/
+/************************* Start member functions that uses Vector*****************************/
+// void PmergeMe::fillDataVector(std::deque<int> data)
+// {
+// 	while (!data.empty())
+// 	{
+// 		this->dataVector.insert(this->dataVector.end(), data.front());
+// 		data.pop();
+// 	}
+// }
+/************************* End member functions that uses Vector*******************************/
+/************************* Start member functions that uses List*****************************/
+// void PmergeMe::fillDataVector(std::deque<int> data)
+// {
+// 	while (!data.empty())
+// 	{
+// 		this->dataVector.insert(this->dataVector.end(), data.front());
+// 		data.pop();
+// 	}
+// }
+/************************* End member functions that uses List*******************************/

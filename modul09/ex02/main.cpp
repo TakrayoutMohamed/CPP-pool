@@ -12,7 +12,9 @@ int	main(int argc, char **argv)
 	try
 	{
 		PmergeMe pm;
-		pm.parseData(argv[1]);
+		if (! pm.parseData(argv[1]))
+			return (1);
+		
 	}
 	catch(std::exception &e)
 	{

@@ -15,8 +15,7 @@ class PmergeMe
 {
 	private:
 		std::vector<int> dataVector;
-		std::deque<int> dataDeque;
-		std::queue<int> dataQueue;
+		std::list<int> dataList;
 	protected:
 	public :
 		PmergeMe();
@@ -31,10 +30,22 @@ class PmergeMe
 		/*member functions*/
 		bool parseData(const char *str) ;
 		bool isAcceptedArgs(const char *str) const throw();
-		void fillDataQue(const char *str)  ;
+		void fillDataQue(const char *str, std::queue<int> &)  ;
 		int  convertStringToInt(const std::string str) const;
-
-
+		template <typename T>
+		void fillDataToContainer(std::queue<int> data, T &container);
+		/*member function that uses Vector*/
+		/*member function that uses List*/
+		
 };
 
+template <typename T>
+void PmergeMe::fillDataToContainer(std::queue<int> data, T &container)
+{
+	while (!data.empty())
+	{
+		container.insert(container.end(), data.front());
+		data.pop();
+	}
+}
 #endif
