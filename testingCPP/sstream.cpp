@@ -6,13 +6,6 @@
 int main(void)
 {
 
-	const int	a(1);
-
-	int& holder = (const_cast<int&>(a) = const_cast<int&>(a) + 90);
-
-	holder = 9;
-
-	std::cout << holder << ' ' << a << std::endl;
-	std::cout << &holder << ' ' << &a;
+	const char *str = "hello \n all \n the \nitches\n"
 	return (0);
 }
