@@ -299,27 +299,27 @@ void PmergeMe::_merge(std::vector<std::pair<int, int> > &obj, int start, int mid
 	{
 		if (obj[startFirstHalf].first < obj[startSecondHalf].first )
 		{
-			temp.push_back(obj[startFirstHalf]);
+			temp.push_back(*(obj.begin() + startFirstHalf));
 			startFirstHalf++;
 		}
 		else
 		{
-			temp.push_back(obj[startSecondHalf]);
+			temp.push_back(*(obj.begin() + startSecondHalf));
 			startSecondHalf++;
 		}
 	}
 	while (startFirstHalf <= mid)
 	{
-		temp.push_back(obj[startFirstHalf]);
+		temp.push_back(*(obj.begin() + startFirstHalf));
 		startFirstHalf++;
 	}
 	while (startSecondHalf <= end)
 	{
-		temp.push_back(obj[startSecondHalf]);
+		temp.push_back(*(obj.begin() + startSecondHalf));
 		startSecondHalf++;
 	}
 	for(size_t i = 0; i < temp.size(); i++)
-		obj[start + i] = temp[i];
+		*(obj.begin() + start + i) = *(temp.begin() + i);
 }
 /************************* End member functions that uses Vector*******************************/
 /************************* Start member functions that uses List*****************************/
