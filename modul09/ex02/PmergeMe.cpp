@@ -235,6 +235,7 @@ void PmergeMe::sortVector()
 	makePairs(this->dataVector, pairVector);
 	sortPairAcending(pairVector);
 
+	printVectorPair(pairVector);//this one should be removed
 	sortVectorByPairFirst(pairVector);
 	printVectorPair(pairVector);//this one should be removed
 }
@@ -267,7 +268,34 @@ void PmergeMe::sortPairAcending(std::vector<std::pair<int, int> > &obj)
 
 void PmergeMe::sortVectorByPairFirst(std::vector<std::pair<int, int> > &obj)
 {
-	(void) obj;
+	// std::cout << "heeeeeeere " << std::endl;
+	mergeSort(obj, 0, obj.size() - 1);
+	// std::cout << "heeeeeeere " << std::endl;
+}
+
+bool comp(std::pair<int, int> start, std::pair<int, int> end)
+{
+	return (start.first < end.first);
+}
+
+void PmergeMe::mergeSort(std::vector<std::pair<int, int> > &obj, int start, int end)
+{
+	std::vector<std::pair<int, int> > tempObj;
+	if (start == end)
+		return;
+	// std::cout << "mmmmmmmeeeee1" << std::endl;
+	int mid = (end + start) / 2;
+	mergeSort(obj, start, mid);
+	mergeSort(obj, mid + 1, end);
+	_merge(obj, start, mid, end);
+	// std::cout << "mmmmmmmeeeee2" << std::endl;
+	// std::merge(obj.begin() + start, obj.begin() + end, tempObj.begin(), tempObj.end(), tempObj.begin());
+	// obj = tempObj;
+}
+
+void PmergeMe::_merge(std::vector<std::pair<int, int> > &obj, int start, int mid, int end)
+{
+	(void) start; (void) mid; (void) end; (void) obj;
 }
 /************************* End member functions that uses Vector*******************************/
 /************************* Start member functions that uses List*****************************/

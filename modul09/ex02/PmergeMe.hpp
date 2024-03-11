@@ -42,6 +42,8 @@ class PmergeMe
 		std::vector<std::pair<int, int> > &makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj);
 		void sortPairAcending(std::vector<std::pair<int, int> > &obj);
 		void sortVectorByPairFirst(std::vector<std::pair<int, int> > &obj);
+		void mergeSort(std::vector<std::pair<int, int> > &obj, int start, int end);
+		void _merge(std::vector<std::pair<int, int> > &obj, int start, int mid, int end);
 		/*sorting member functions that uses List*/
 		
 };
