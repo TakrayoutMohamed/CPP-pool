@@ -2,7 +2,7 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc < 2)
 	{
 		std::cerr << "Error :" << std::endl;
 		std::cerr << "Syntax to run the program: " << std::endl;
@@ -12,7 +12,15 @@ int	main(int argc, char **argv)
 	try
 	{
 		PmergeMe pm;
-		if (!pm.parseData(argv[1]))
+		std::string args;
+		int i = 1;
+		while (i < argc)
+		{
+			args =  args + " "  + argv[i] + " ";
+			i++;
+		}
+		std::cout << "args = |" << args << "|" << std::endl;
+		if (!pm.parseData(args))
 			return (1);
 		
 	}

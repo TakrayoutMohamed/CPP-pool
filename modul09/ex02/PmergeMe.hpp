@@ -29,9 +29,9 @@ class PmergeMe
 			const char *what() const throw();
 		} OverflowException;
 		/*member functions*/
-		bool parseData(const char *str) ;
-		bool isAcceptedArgs(const char *str) const throw();
-		void fillDataQue(const char *str, std::queue<int> &)  ;
+		bool parseData(const std::string &str) ;
+		bool isAcceptedArgs(const std::string &str) const throw();
+		void fillDataQue(const std::string &str, std::queue<int> &);
 		int  convertStringToInt(const std::string str) const;
 		template <typename T>
 		void	swap(T &a, T &b);

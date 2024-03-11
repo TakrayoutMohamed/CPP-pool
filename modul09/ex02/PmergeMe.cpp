@@ -136,9 +136,9 @@ void printList(std::list<int> data)
 	std::cout << "***********end printing the data of the list" << std::endl;
 }
 
-bool	PmergeMe::parseData(const char *str)
+bool	PmergeMe::parseData(const std::string &str)
 {
-	if (!str || !*str)
+	if (str.length() == 0)
 	{
 		std::cerr << "Error "<< std::endl << "The data you entered not accepted" << std::endl;
 		return (false);
@@ -169,11 +169,11 @@ bool	PmergeMe::parseData(const char *str)
 	return (true);
 }
 
-bool	PmergeMe::isAcceptedArgs(const char *str) const throw()
+bool	PmergeMe::isAcceptedArgs(const std::string &str) const throw()
 {
 	int i = 0;
 
-	if (!str || !*str)
+	if (str.length() == 0)
 		return (false);
 	while(str[i])
 	{
@@ -193,7 +193,7 @@ bool	PmergeMe::isAcceptedArgs(const char *str) const throw()
 	return (true);
 }
 
-void PmergeMe::fillDataQue(const char *strData, std::queue<int> &dataQueue)
+void PmergeMe::fillDataQue(const std::string &strData, std::queue<int> &dataQueue)
 {
 	std::stringstream tempsstream;
 	std::string strNbr;
