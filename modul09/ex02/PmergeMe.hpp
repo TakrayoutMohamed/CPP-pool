@@ -8,6 +8,7 @@
 # include <vector>
 # include <deque>
 # include <queue>
+// # include <pair>
 # include <list>
 # include <set>
 
@@ -33,8 +34,14 @@ class PmergeMe
 		void fillDataQue(const char *str, std::queue<int> &)  ;
 		int  convertStringToInt(const std::string str) const;
 		template <typename T>
+		void	swap(T &a, T &b);
+		template <typename T>
 		void fillDataToContainer(std::queue<int> data, T &container);
 		/*sorting member functions that uses Vector */
+		void	sortVector();
+		std::vector<std::pair<int, int> > &makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj);
+		void sortPairAcending(std::vector<std::pair<int, int> > &obj);
+		void sortVectorByPairFirst(std::vector<std::pair<int, int> > &obj);
 		/*sorting member functions that uses List*/
 		
 };
@@ -47,5 +54,14 @@ void PmergeMe::fillDataToContainer(std::queue<int> data, T &container)
 		container.insert(container.end(), data.front());
 		data.pop();
 	}
+}
+
+template <typename T>
+void	PmergeMe::swap(T &a, T &b)
+{
+	T	c;
+	c = a;
+	a = b;
+	b = c;
 }
 #endif

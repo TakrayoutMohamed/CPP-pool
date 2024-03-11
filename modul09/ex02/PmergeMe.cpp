@@ -69,6 +69,30 @@ void printQue(std::queue<int> data)
 ///
 ///
 ///
+void printVectorPair(std::vector<std::pair<int, int> > data) 
+{
+	if (data.empty())
+	{
+		std::cout << "the vector<pair> is empty" <<std::endl;
+		return ;
+	}
+	else
+		std::cout << "***********start printing the data of the vector<pair>" << std::endl;
+	std::vector<std::pair<int, int> >::iterator it = data.begin();
+	while (it != data.end())
+	{
+		std::cout <<"{" << it->first << ", " << it->second << "} ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << "***********end printing the data of the vector<pair>" << std::endl;
+}
+
+//this one should be removed
+///
+///
+///
+///
 void printVector(std::vector<int> data) 
 {
 	if (data.empty())
@@ -133,7 +157,8 @@ bool	PmergeMe::parseData(const char *str)
 		fillDataToContainer<std::vector<int> >(dataQueue, dataVector);
 		fillDataToContainer<std::list<int> >(dataQueue, dataList);
 		// printQue(dataQueue);
-		// printVector(this->dataVector);
+		printVector(this->dataVector);
+		sortVector();
 		// printList(this->dataList);
 	}
 	catch (std::exception &e)
@@ -198,14 +223,52 @@ int PmergeMe::convertStringToInt(const std::string str) const
 }
 /************************* End member functions *****************************/
 /************************* Start member functions that uses Vector*****************************/
-// void PmergeMe::fillDataVector(std::deque<int> data)
-// {
-// 	while (!data.empty())
-// 	{
-// 		this->dataVector.insert(this->dataVector.end(), data.front());
-// 		data.pop();
-// 	}
-// }
+void PmergeMe::sortVector()
+{
+	std::vector<std::pair<int, int> > pairVector;
+	int lastElem;
+	if (this->dataVector.size() % 2 != 0)
+	{
+		lastElem = *(--(this->dataVector.end()));
+		this->dataVector.pop_back();
+	}
+	makePairs(this->dataVector, pairVector);
+	sortPairAcending(pairVector);
+
+	sortVectorByPairFirst(pairVector);
+	printVectorPair(pairVector);//this one should be removed
+}
+
+std::vector<std::pair<int, int> > &PmergeMe::makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj)
+{
+	std::vector<int>::const_iterator it;
+	
+	it = vect.begin();
+	while (it != vect.end() && (it + 1) != vect.end())
+	{
+		obj.insert(obj.end(), std::make_pair(*it, *(it + 1)));
+		it = it + 2;
+	}
+	return (obj);
+}
+
+void PmergeMe::sortPairAcending(std::vector<std::pair<int, int> > &obj)
+{
+	std::vector<std::pair<int, int> >::iterator it;
+	it = obj.begin();
+
+	while (it != obj.end())
+	{
+		if (it->first < it->second)
+			swap(it->first, it->second);
+		it++;
+	}
+}
+
+void PmergeMe::sortVectorByPairFirst(std::vector<std::pair<int, int> > &obj)
+{
+	(void) obj;
+}
 /************************* End member functions that uses Vector*******************************/
 /************************* Start member functions that uses List*****************************/
 // void PmergeMe::fillDataVector(std::deque<int> data)

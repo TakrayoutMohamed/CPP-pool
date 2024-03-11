@@ -12,7 +12,7 @@ int	main(int argc, char **argv)
 	try
 	{
 		PmergeMe pm;
-		if (! pm.parseData(argv[1]))
+		if (!pm.parseData(argv[1]))
 			return (1);
 		
 	}
