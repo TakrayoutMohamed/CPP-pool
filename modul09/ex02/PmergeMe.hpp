@@ -17,6 +17,7 @@ class PmergeMe
 	private:
 		std::vector<int> dataVector;
 		std::list<int> dataList;
+		int _lastElem;
 	protected:
 	public :
 		PmergeMe();
@@ -39,11 +40,13 @@ class PmergeMe
 		void fillDataToContainer(std::queue<int> data, T &container);
 		/*sorting member functions that uses Vector */
 		void	sortVector();
-		std::vector<std::pair<int, int> > &makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj);
+		void makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj);
 		void sortPairAcending(std::vector<std::pair<int, int> > &obj);
 		void sortVectorByPairFirst(std::vector<std::pair<int, int> > &obj);
+		void mainPendChain(std::vector<int> &mainObj, std::vector<int> &pendObj, std::vector<std::pair<int, int> > &pairObj);
 		void mergeSort(std::vector<std::pair<int, int> > &obj, int start, int end);
 		void _merge(std::vector<std::pair<int, int> > &obj, int start, int mid, int end);
+		void mergeMainPendChain(std::vector<int> &main, std::vector<int> &pend);
 		/*sorting member functions that uses List*/
 		
 };

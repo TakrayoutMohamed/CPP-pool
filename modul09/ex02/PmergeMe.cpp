@@ -1,7 +1,7 @@
 #include "./PmergeMe.hpp"
 
 /*****************************start orthodox form canonical******************/
-PmergeMe::PmergeMe()
+PmergeMe::PmergeMe() :_lastElem(-1)
 {
 	std::cout << "Default constructor PmergeMe" << std::endl;
 }
@@ -20,7 +20,9 @@ const PmergeMe &PmergeMe::operator=(const PmergeMe &obj)
 	std::cout << "copy assignment operator PmergeMe" << std::endl;
 	if (this != &obj)
 	{
-
+		this->dataVector = obj.dataVector;
+		this->dataList = obj.dataList;
+		this->_lastElem = obj._lastElem;
 	}
 	return (*this);
 }
@@ -156,8 +158,6 @@ bool	PmergeMe::parseData(const std::string &str)
 		fillDataQue(str, dataQueue);
 		fillDataToContainer<std::vector<int> >(dataQueue, dataVector);
 		fillDataToContainer<std::list<int> >(dataQueue, dataList);
-		// printQue(dataQueue);
-		printVector(this->dataVector);
 		sortVector();
 		// printList(this->dataList);
 	}
@@ -226,21 +226,26 @@ int PmergeMe::convertStringToInt(const std::string str) const
 void PmergeMe::sortVector()
 {
 	std::vector<std::pair<int, int> > pairVector;
-	int lastElem;
+	std::vector<int> mainChain;
+	std::vector<int> pendChain;
+
 	if (this->dataVector.size() % 2 != 0)
 	{
-		lastElem = *(--(this->dataVector.end()));
+		_lastElem = *(--(this->dataVector.end()));
 		this->dataVector.pop_back();
 	}
 	makePairs(this->dataVector, pairVector);
 	sortPairAcending(pairVector);
 
-	printVectorPair(pairVector);//this one should be removed
 	sortVectorByPairFirst(pairVector);
-	printVectorPair(pairVector);//this one should be removed
+	mainPendChain(mainChain, pendChain, pairVector);
+	mergeMainPendChain(mainChain, pendChain);
+	pairVector.clear();
+	mainChain.clear();
+	pendChain.clear();
 }
 
-std::vector<std::pair<int, int> > &PmergeMe::makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj)
+void PmergeMe::makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj)
 {
 	std::vector<int>::const_iterator it;
 	
@@ -250,7 +255,6 @@ std::vector<std::pair<int, int> > &PmergeMe::makePairs(const std::vector<int> &v
 		obj.insert(obj.end(), std::make_pair(*it, *(it + 1)));
 		it = it + 2;
 	}
-	return (obj);
 }
 
 void PmergeMe::sortPairAcending(std::vector<std::pair<int, int> > &obj)
@@ -268,14 +272,24 @@ void PmergeMe::sortPairAcending(std::vector<std::pair<int, int> > &obj)
 
 void PmergeMe::sortVectorByPairFirst(std::vector<std::pair<int, int> > &obj)
 {
-	// std::cout << "obj.size() " << obj.size() << std::endl;
 	mergeSort(obj, 0, obj.size() - 1);
-	// std::cout << "heeeeeeere " << std::endl;
 }
 
-bool comp(std::pair<int, int> start, std::pair<int, int> end)
+void PmergeMe::mainPendChain(std::vector<int> &mainObj, std::vector<int> &pendObj, std::vector<std::pair<int, int> > &pairObj)
 {
-	return (start.first < end.first);
+	std::vector<std::pair<int, int> >::iterator it = pairObj.begin();
+	if (it != pairObj.end())
+	{
+		mainObj.insert(mainObj.end(), it->second);
+		mainObj.insert(mainObj.end(), it->first);
+		it++;
+	}
+	while (it != pairObj.end())
+	{
+		mainObj.insert(mainObj.end(), it->first);
+		pendObj.insert(pendObj.end(), it->second);
+		it++;
+	}
 }
 
 void PmergeMe::mergeSort(std::vector<std::pair<int, int> > &obj, int start, int end)
@@ -291,7 +305,6 @@ void PmergeMe::mergeSort(std::vector<std::pair<int, int> > &obj, int start, int 
 
 void PmergeMe::_merge(std::vector<std::pair<int, int> > &obj, int start, int mid, int end)
 {
-	(void) start; (void) mid; (void) end; (void) obj;
 	std::vector<std::pair<int, int> > temp;
 	int startFirstHalf = start;
 	int startSecondHalf = mid + 1;
@@ -320,6 +333,46 @@ void PmergeMe::_merge(std::vector<std::pair<int, int> > &obj, int start, int mid
 	}
 	for(size_t i = 0; i < temp.size(); i++)
 		*(obj.begin() + start + i) = *(temp.begin() + i);
+}
+
+bool comp(int a, int value)
+{
+	return (a <= value);
+}
+
+void PmergeMe::mergeMainPendChain(std::vector<int> &mainChain, std::vector<int> &pendChain)
+{
+	int i = std::distance(pendChain.begin(), pendChain.end()) / 2;
+	int j = i;
+	std::vector<int>::iterator it;
+	std::vector<int>::iterator lower;
+
+	it = pendChain.begin();
+	this->dataVector.clear();
+	this->dataVector.insert(this->dataVector.begin(), mainChain.begin(), mainChain.end());
+	while (it != pendChain.end() && i >= 0 )
+	{
+		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), *(it + 1), comp);
+		this->dataVector.insert(lower, *(it + 1));
+		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), *(it), comp);
+		this->dataVector.insert(lower, *it);
+		it += 2;
+		i -= 2;
+	}
+	if (this->_lastElem != -1)
+	{
+		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), _lastElem, comp);
+		this->dataVector.insert(lower, *(it + 1));
+	}
+	it = pendChain.end() - 1;
+	while (static_cast<size_t>(j) < pendChain.size() - 1)
+	{
+		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), *(it), comp);
+		this->dataVector.insert(lower, *it);
+		it--;
+		j++;
+	}
+
 }
 /************************* End member functions that uses Vector*******************************/
 /************************* Start member functions that uses List*****************************/
