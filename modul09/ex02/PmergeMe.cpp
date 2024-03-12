@@ -243,6 +243,7 @@ void PmergeMe::sortVector()
 	pairVector.clear();
 	mainChain.clear();
 	pendChain.clear();
+	printVector(this->dataVector);//i should remove this one
 }
 
 void PmergeMe::makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj)
@@ -294,7 +295,6 @@ void PmergeMe::mainPendChain(std::vector<int> &mainObj, std::vector<int> &pendOb
 
 void PmergeMe::mergeSort(std::vector<std::pair<int, int> > &obj, int start, int end)
 {
-	std::vector<std::pair<int, int> > tempObj;
 	if (start == end)
 		return;
 	int mid = (end + start) / 2;
@@ -310,27 +310,15 @@ void PmergeMe::_merge(std::vector<std::pair<int, int> > &obj, int start, int mid
 	int startSecondHalf = mid + 1;
 	while (startFirstHalf <= mid && startSecondHalf <= end)
 	{
-		if (obj[startFirstHalf].first < obj[startSecondHalf].first )
-		{
-			temp.push_back(*(obj.begin() + startFirstHalf));
-			startFirstHalf++;
-		}
+		if ((obj.begin() + startFirstHalf)->first < (obj.begin() + startSecondHalf)->first)
+			temp.push_back(*(obj.begin() + startFirstHalf++));
 		else
-		{
-			temp.push_back(*(obj.begin() + startSecondHalf));
-			startSecondHalf++;
-		}
+			temp.push_back(*(obj.begin() + startSecondHalf++));
 	}
 	while (startFirstHalf <= mid)
-	{
-		temp.push_back(*(obj.begin() + startFirstHalf));
-		startFirstHalf++;
-	}
+		temp.push_back(*(obj.begin() + startFirstHalf++));
 	while (startSecondHalf <= end)
-	{
-		temp.push_back(*(obj.begin() + startSecondHalf));
-		startSecondHalf++;
-	}
+		temp.push_back(*(obj.begin() + startSecondHalf++));
 	for(size_t i = 0; i < temp.size(); i++)
 		*(obj.begin() + start + i) = *(temp.begin() + i);
 }

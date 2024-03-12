@@ -48,6 +48,14 @@ class PmergeMe
 		void _merge(std::vector<std::pair<int, int> > &obj, int start, int mid, int end);
 		void mergeMainPendChain(std::vector<int> &main, std::vector<int> &pend);
 		/*sorting member functions that uses List*/
+		void	sortList();
+		void makePairs(const std::list<int> &vect, std::list<std::pair<int, int> > &obj);
+		void sortPairAcending(std::list<std::pair<int, int> > &obj);
+		void sortListByPairFirst(std::list<std::pair<int, int> > &obj);
+		void mainPendChain(std::list<int> &mainObj, std::list<int> &pendObj, std::list<std::pair<int, int> > &pairObj);
+		void mergeSort(std::list<std::pair<int, int> > &obj, int start, int end);
+		void _merge(std::list<std::pair<int, int> > &obj, int start, int mid, int end);
+		void mergeMainPendChain(std::list<int> &main, std::list<int> &pend);
 		
 };
 
