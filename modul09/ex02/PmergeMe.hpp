@@ -9,14 +9,14 @@
 # include <deque>
 # include <queue>
 // # include <pair>
-# include <list>
+// # include <Deque>
 # include <set>
 
 class PmergeMe
 {
 	private:
 		std::vector<int> dataVector;
-		std::list<int> dataList;
+		std::deque<int> dataDeque;
 		int _lastElem;
 	protected:
 	public :
@@ -47,15 +47,15 @@ class PmergeMe
 		void mergeSort(std::vector<std::pair<int, int> > &obj, int start, int end);
 		void _merge(std::vector<std::pair<int, int> > &obj, int start, int mid, int end);
 		void mergeMainPendChain(std::vector<int> &main, std::vector<int> &pend);
-		/*sorting member functions that uses List*/
-		void	sortList();
-		void makePairs(const std::list<int> &vect, std::list<std::pair<int, int> > &obj);
-		void sortPairAcending(std::list<std::pair<int, int> > &obj);
-		void sortListByPairFirst(std::list<std::pair<int, int> > &obj);
-		void mainPendChain(std::list<int> &mainObj, std::list<int> &pendObj, std::list<std::pair<int, int> > &pairObj);
-		void mergeSort(std::list<std::pair<int, int> > &obj, int start, int end);
-		void _merge(std::list<std::pair<int, int> > &obj, int start, int mid, int end);
-		void mergeMainPendChain(std::list<int> &main, std::list<int> &pend);
+		/*sorting member functions that uses Deque*/
+		void	sortDeque();
+		void makePairs(const std::deque<int> &vect, std::deque<std::pair<int, int> > &obj);
+		void sortPairAcending(std::deque<std::pair<int, int> > &obj);
+		void sortDequeByPairFirst(std::deque<std::pair<int, int> > &obj);
+		void mainPendChain(std::deque<int> &mainObj, std::deque<int> &pendObj, std::deque<std::pair<int, int> > &pairObj);
+		void mergeSort(std::deque<std::pair<int, int> > &obj, int start, int end);
+		void _merge(std::deque<std::pair<int, int> > &obj, int start, int mid, int end);
+		void mergeMainPendChain(std::deque<int> &main, std::deque<int> &pend);
 		
 };
 

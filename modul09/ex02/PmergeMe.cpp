@@ -21,7 +21,7 @@ const PmergeMe &PmergeMe::operator=(const PmergeMe &obj)
 	if (this != &obj)
 	{
 		this->dataVector = obj.dataVector;
-		this->dataList = obj.dataList;
+		this->dataDeque = obj.dataDeque;
 		this->_lastElem = obj._lastElem;
 	}
 	return (*this);
@@ -119,23 +119,23 @@ void printVector(std::vector<int> data)
 ///
 ///
 ///
-void printList(std::list<int> data) 
+void printDeque(std::deque<int> data) 
 {
 	if (data.empty())
 	{
-		std::cout << "the list is empty" <<std::endl;
+		std::cout << "the deque is empty" <<std::endl;
 		return ;
 	}
 	else
-		std::cout << "***********start printing the data of the list" << std::endl;
-	std::list<int>::iterator it = data.begin();
+		std::cout << "***********start printing the data of the deque" << std::endl;
+	std::deque<int>::iterator it = data.begin();
 	while (it != data.end())
 	{
 		std::cout << *it << " ";
 		it++;
 	}
 	std::cout << std::endl;
-	std::cout << "***********end printing the data of the list" << std::endl;
+	std::cout << "***********end printing the data of the deque" << std::endl;
 }
 
 bool	PmergeMe::parseData(const std::string &str)
@@ -157,9 +157,12 @@ bool	PmergeMe::parseData(const std::string &str)
 		std::queue<int> dataQueue;
 		fillDataQue(str, dataQueue);
 		fillDataToContainer<std::vector<int> >(dataQueue, dataVector);
-		fillDataToContainer<std::list<int> >(dataQueue, dataList);
+		fillDataToContainer<std::deque<int> >(dataQueue, dataDeque);
+		// printVector(this->dataVector);
 		sortVector();
-		// printList(this->dataList);
+		sortDeque();
+		printDeque(this->dataDeque);
+		printVector(this->dataVector);
 	}
 	catch (std::exception &e)
 	{
@@ -229,21 +232,24 @@ void PmergeMe::sortVector()
 	std::vector<int> mainChain;
 	std::vector<int> pendChain;
 
+	this->_lastElem = -1;
 	if (this->dataVector.size() % 2 != 0)
 	{
 		_lastElem = *(--(this->dataVector.end()));
 		this->dataVector.pop_back();
 	}
 	makePairs(this->dataVector, pairVector);
+	dataVector.clear();
 	sortPairAcending(pairVector);
 
 	sortVectorByPairFirst(pairVector);
 	mainPendChain(mainChain, pendChain, pairVector);
+	// printVector(this->dataVector);//i should remove this one
 	mergeMainPendChain(mainChain, pendChain);
 	pairVector.clear();
 	mainChain.clear();
 	pendChain.clear();
-	printVector(this->dataVector);//i should remove this one
+	// printVector(this->dataVector);//i should remove this one
 }
 
 void PmergeMe::makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj)
@@ -350,7 +356,7 @@ void PmergeMe::mergeMainPendChain(std::vector<int> &mainChain, std::vector<int> 
 	if (this->_lastElem != -1)
 	{
 		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), _lastElem, comp);
-		this->dataVector.insert(lower, *(it + 1));
+		this->dataVector.insert(lower, _lastElem);
 	}
 	it = pendChain.end() - 1;
 	while (static_cast<size_t>(j) < pendChain.size() - 1)
@@ -364,12 +370,139 @@ void PmergeMe::mergeMainPendChain(std::vector<int> &mainChain, std::vector<int> 
 }
 /************************* End member functions that uses Vector*******************************/
 /************************* Start member functions that uses List*****************************/
-// void PmergeMe::fillDataVector(std::deque<int> data)
-// {
-// 	while (!data.empty())
-// 	{
-// 		this->dataVector.insert(this->dataVector.end(), data.front());
-// 		data.pop();
-// 	}
-// }
+void PmergeMe::sortDeque()
+{
+	std::deque<std::pair<int, int> > pairDeque;
+	std::deque<int> mainChain;
+	std::deque<int> pendChain;
+
+	this->_lastElem = -1;
+	if (this->dataDeque.size() % 2 != 0)
+	{
+		_lastElem = *(--(this->dataDeque.end()));
+		this->dataDeque.pop_back();
+	}
+	makePairs(this->dataDeque, pairDeque);
+	sortPairAcending(pairDeque);
+
+	sortDequeByPairFirst(pairDeque);
+	mainPendChain(mainChain, pendChain, pairDeque);
+	mergeMainPendChain(mainChain, pendChain);
+	pairDeque.clear();
+	mainChain.clear();
+	pendChain.clear();
+	// printDeque(this->dataDeque);//i should remove this one
+}
+
+void PmergeMe::makePairs(const std::deque<int> &vect, std::deque<std::pair<int, int> > &obj)
+{
+	std::deque<int>::const_iterator it;
+	
+	it = vect.begin();
+	while (it != vect.end() && (it + 1) != vect.end())
+	{
+		obj.insert(obj.end(), std::make_pair(*it, *(it + 1)));
+		it = it + 2;
+	}
+}
+
+void PmergeMe::sortPairAcending(std::deque<std::pair<int, int> > &obj)
+{
+	std::deque<std::pair<int, int> >::iterator it;
+	it = obj.begin();
+
+	while (it != obj.end())
+	{
+		if (it->first < it->second)
+			swap(it->first, it->second);
+		it++;
+	}
+}
+
+void PmergeMe::sortDequeByPairFirst(std::deque<std::pair<int, int> > &obj)
+{
+	mergeSort(obj, 0, obj.size() - 1);
+}
+
+void PmergeMe::mainPendChain(std::deque<int> &mainObj, std::deque<int> &pendObj, std::deque<std::pair<int, int> > &pairObj)
+{
+	std::deque<std::pair<int, int> >::iterator it = pairObj.begin();
+	if (it != pairObj.end())
+	{
+		mainObj.insert(mainObj.end(), it->second);
+		mainObj.insert(mainObj.end(), it->first);
+		it++;
+	}
+	while (it != pairObj.end())
+	{
+		mainObj.insert(mainObj.end(), it->first);
+		pendObj.insert(pendObj.end(), it->second);
+		it++;
+	}
+}
+
+void PmergeMe::mergeSort(std::deque<std::pair<int, int> > &obj, int start, int end)
+{
+	if (start == end)
+		return;
+	int mid = (end + start) / 2;
+	mergeSort(obj, start, mid);
+	mergeSort(obj, mid + 1, end);
+	_merge(obj, start, mid, end);
+}
+
+void PmergeMe::_merge(std::deque<std::pair<int, int> > &obj, int start, int mid, int end)
+{
+	std::deque<std::pair<int, int> > temp;
+	int startFirstHalf = start;
+	int startSecondHalf = mid + 1;
+	while (startFirstHalf <= mid && startSecondHalf <= end)
+	{
+		if ((obj.begin() + startFirstHalf)->first < (obj.begin() + startSecondHalf)->first)
+			temp.push_back(*(obj.begin() + startFirstHalf++));
+		else
+			temp.push_back(*(obj.begin() + startSecondHalf++));
+	}
+	while (startFirstHalf <= mid)
+		temp.push_back(*(obj.begin() + startFirstHalf++));
+	while (startSecondHalf <= end)
+		temp.push_back(*(obj.begin() + startSecondHalf++));
+	for(size_t i = 0; i < temp.size(); i++)
+		*(obj.begin() + start + i) = *(temp.begin() + i);
+}
+
+void PmergeMe::mergeMainPendChain(std::deque<int> &mainChain, std::deque<int> &pendChain)
+{
+	int i = std::distance(pendChain.begin(), pendChain.end()) / 2;
+	int j = i;
+	std::deque<int>::iterator it;
+	std::deque<int>::iterator lower;
+
+	it = pendChain.begin();
+	this->dataDeque.clear();
+	this->dataDeque.insert(this->dataDeque.begin(), mainChain.begin(), mainChain.end());
+	while (it != pendChain.end() && i >= 0 )
+	{
+		lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), *(it + 1), comp);
+		this->dataDeque.insert(lower, *(it + 1));
+		lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), *(it), comp);
+		this->dataDeque.insert(lower, *it);
+		it += 2;
+		i -= 2;
+	}
+	if (this->_lastElem != -1)
+	{
+		lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), _lastElem, comp);
+		this->dataDeque.insert(lower, _lastElem);
+	}
+	it = pendChain.end() - 1;
+	while (static_cast<size_t>(j) < pendChain.size() - 1)
+	{
+		lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), *(it), comp);
+		this->dataDeque.insert(lower, *it);
+		it--;
+		j++;
+	}
+
+}
 /************************* End member functions that uses List*******************************/
