@@ -30,7 +30,15 @@ class PmergeMe
 			const char *what() const throw();
 		} OverflowException;
 		/*member functions*/
-		bool parseData(const std::string &str) ;
+		bool	parseData(const std::string &str) ;
+		void	sortVector();
+		void	sortDeque();
+		void printVector(const std::string &str, const std::vector<int> &obj) const;
+		void printDeque(const std::string &str, const std::deque<int> &obj) const;
+		/*getters*/
+		const std::vector<int> &getDataVector() const;
+		const std::deque<int> &getDataDeque() const;
+	private:
 		bool isAcceptedArgs(const std::string &str) const throw();
 		void fillDataQue(const std::string &str, std::queue<int> &);
 		void clearDataQue(std::queue<int> &);
@@ -39,10 +47,7 @@ class PmergeMe
 		void	swap(T &a, T &b);
 		template <typename T>
 		void fillDataToContainer(std::queue<int> data, T &container);
-		void printVector(const std::string &str, const std::vector<int> &obj) const;
-		void printDeque(const std::string &str, const std::deque<int> &obj) const;
 		/*sorting member functions that uses Vector */
-		void	sortVector();
 		void makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj);
 		void sortPairAcending(std::vector<std::pair<int, int> > &obj);
 		void sortVectorByPairFirst(std::vector<std::pair<int, int> > &obj);
@@ -51,7 +56,6 @@ class PmergeMe
 		void _merge(std::vector<std::pair<int, int> > &obj, int start, int mid, int end);
 		void mergeMainPendChain(std::vector<int> &main, std::vector<int> &pend);
 		/*sorting member functions that uses Deque*/
-		void	sortDeque();
 		void makePairs(const std::deque<int> &vect, std::deque<std::pair<int, int> > &obj);
 		void sortPairAcending(std::deque<std::pair<int, int> > &obj);
 		void sortDequeByPairFirst(std::deque<std::pair<int, int> > &obj);
@@ -59,9 +63,6 @@ class PmergeMe
 		void mergeSort(std::deque<std::pair<int, int> > &obj, int start, int end);
 		void _merge(std::deque<std::pair<int, int> > &obj, int start, int mid, int end);
 		void mergeMainPendChain(std::deque<int> &main, std::deque<int> &pend);
-		/*getters*/
-		const std::vector<int> &getDataVector() const;
-		const std::deque<int> &getDataDeque() const;
 };
 
 template <typename T>
