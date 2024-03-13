@@ -33,6 +33,7 @@ class PmergeMe
 		bool parseData(const std::string &str) ;
 		bool isAcceptedArgs(const std::string &str) const throw();
 		void fillDataQue(const std::string &str, std::queue<int> &);
+		void clearDataQue(std::queue<int> &);
 		int  convertStringToInt(const std::string str) const;
 		template <typename T>
 		void	swap(T &a, T &b);
@@ -58,7 +59,9 @@ class PmergeMe
 		void mergeSort(std::deque<std::pair<int, int> > &obj, int start, int end);
 		void _merge(std::deque<std::pair<int, int> > &obj, int start, int mid, int end);
 		void mergeMainPendChain(std::deque<int> &main, std::deque<int> &pend);
-		
+		/*getters*/
+		const std::vector<int> &getDataVector() const;
+		const std::deque<int> &getDataDeque() const;
 };
 
 template <typename T>

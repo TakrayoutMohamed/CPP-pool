@@ -3,6 +3,8 @@
 /*****************************start orthodox form canonical******************/
 PmergeMe::PmergeMe() :_lastElem(-1)
 {
+	this->dataVector.clear();
+	this->dataDeque.clear();
 	std::cout << "Default constructor PmergeMe" << std::endl;
 }
 
@@ -20,6 +22,8 @@ const PmergeMe &PmergeMe::operator=(const PmergeMe &obj)
 	std::cout << "copy assignment operator PmergeMe" << std::endl;
 	if (this != &obj)
 	{
+		this->dataVector.clear();
+		this->dataDeque.clear();
 		this->dataVector = obj.dataVector;
 		this->dataDeque = obj.dataDeque;
 		this->_lastElem = obj._lastElem;
@@ -65,21 +69,8 @@ void PmergeMe::printDeque(const std::string &str, const std::deque<int> &data)  
 	std::cout << std::endl;
 }
 
-double getTimeNow()
-{
-	struct timeval t;
-
-    gettimeofday(&t, NULL);
-    return(static_cast<double> (t.tv_sec) + static_cast<double>(t.tv_usec / 1000000.00));
-}
-
 bool	PmergeMe::parseData(const std::string &str)
 {
-	double startVectorTime;
-	double endVectorTime;
-	double startDequeTime;
-	double endDequeTime;
-
 	if (str.length() == 0)
 	{
 		std::cerr << "Error "<< std::endl << "The data you entered not accepted" << std::endl;
@@ -98,18 +89,7 @@ bool	PmergeMe::parseData(const std::string &str)
 		fillDataQue(str, dataQueue);
 		fillDataToContainer<std::vector<int> >(dataQueue, dataVector);
 		fillDataToContainer<std::deque<int> >(dataQueue, dataDeque);
-		printVector("Befor [Vector]:", this->dataVector);
-		startVectorTime = getTimeNow();
-		sortVector();
-		endVectorTime = (getTimeNow() - startVectorTime) * 1000000.00;
-		printVector("After [Vector]:", this->dataVector);
-		printDeque("Befor [Deque]:", this->dataDeque);
-		startDequeTime = getTimeNow();
-		sortDeque();
-		endDequeTime = (getTimeNow() - startDequeTime) * 1000000.00;
-		printDeque("After [Deque]:", this->dataDeque);
-		std::cout << "Time to process a range of "<< this->dataVector.size() <<" elements with std::[Vector] : " << endVectorTime << std::endl;
-		std::cout << "Time to process a range of "<< this->dataDeque.size() <<" elements with std::[Deque] : " << endDequeTime << std::endl;
+		clearDataQue(dataQueue);
 	}
 	catch (std::exception &e)
 	{
@@ -127,17 +107,22 @@ bool	PmergeMe::isAcceptedArgs(const std::string &str) const throw()
 		return (false);
 	while(str[i])
 	{
-		if (isspace(static_cast <int> (str[i])) && ++i > -2)
+		if (isspace(static_cast <int> (str[i])))
+		{
+			i++;
 			continue ;
+		}
 		if (str[i] == '-')
 			return (false);
-		if (str[i] == '+')
+		else if (str[i] == '+')
 		{
 			if (!isdigit(str[i + 1]))
 				return (false);
 			if (i != 0 && !isspace(str[i - 1]))
 				return (false);
 		}
+		else if (!isdigit(str[i]))
+			return (false);
 		i++;
 	}
 	return (true);
@@ -159,6 +144,12 @@ void PmergeMe::fillDataQue(const std::string &strData, std::queue<int> &dataQueu
 		nbr = convertStringToInt(strNbr);
 		dataQueue.push(nbr);
 	}
+}
+
+void PmergeMe::clearDataQue(std::queue<int> &obj)
+{
+	while (!obj.empty())
+		obj.pop();
 }
 
 int PmergeMe::convertStringToInt(const std::string str) const
@@ -186,17 +177,11 @@ void PmergeMe::sortVector()
 		this->dataVector.pop_back();
 	}
 	makePairs(this->dataVector, pairVector);
-	dataVector.clear();
 	sortPairAcending(pairVector);
-
 	sortVectorByPairFirst(pairVector);
 	mainPendChain(mainChain, pendChain, pairVector);
-	printVector("main chain",mainChain);
-	printVector("pend chain",pendChain);
-	mergeMainPendChain(mainChain, pendChain);
-	printVector("main chain",mainChain);
-	printVector("pend chain",pendChain);
 	pairVector.clear();
+	mergeMainPendChain(mainChain, pendChain);
 	mainChain.clear();
 	pendChain.clear();
 }
@@ -340,7 +325,6 @@ void PmergeMe::sortDeque()
 	}
 	makePairs(this->dataDeque, pairDeque);
 	sortPairAcending(pairDeque);
-
 	sortDequeByPairFirst(pairDeque);
 	mainPendChain(mainChain, pendChain, pairDeque);
 	pairDeque.clear();
@@ -468,3 +452,13 @@ void PmergeMe::mergeMainPendChain(std::deque<int> &mainChain, std::deque<int> &p
 
 }
 /************************* End member functions that uses List*******************************/
+/*getters */
+const std::vector<int> &PmergeMe::getDataVector() const 
+{
+	return (this->dataVector);
+}
+
+const std::deque<int> &PmergeMe::getDataDeque() const
+{
+	return (this->dataDeque);
+}
