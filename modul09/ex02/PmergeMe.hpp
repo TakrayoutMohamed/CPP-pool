@@ -8,7 +8,7 @@
 # include <vector>
 # include <deque>
 # include <queue>
-// # include <pair>
+# include <sys/time.h>
 // # include <Deque>
 # include <set>
 
@@ -38,6 +38,8 @@ class PmergeMe
 		void	swap(T &a, T &b);
 		template <typename T>
 		void fillDataToContainer(std::queue<int> data, T &container);
+		void printVector(const std::string &str, const std::vector<int> &obj) const;
+		void printDeque(const std::string &str, const std::deque<int> &obj) const;
 		/*sorting member functions that uses Vector */
 		void	sortVector();
 		void makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj);

@@ -41,105 +41,45 @@ const char *PmergeMe::OverflowException::what() const throw()
 /*****************************end Exceptions***********************/
 /************************* Start member functions ***************************/
 
-
-
-//this one should be removed
-///
-///
-///
-///
-void printQue(std::queue<int> data) 
+void PmergeMe::printVector(const std::string &str, const std::vector<int> &data)  const
 {
-	if (data.empty())
-	{
-		std::cout << "the queue is empty" <<std::endl;
-		return ;
-	}
-	else
-		std::cout << "***********start printing the data of the queue" << std::endl;
-	while (!data.empty())
-	{
-		std::cout << data.front() << " ";
-		data.pop();
-	}
-	std::cout << std::endl;
-	std::cout << "***********end printing the data of the queue" << std::endl;
-}
-
-//this one should be removed
-///
-///
-///
-///
-void printVectorPair(std::vector<std::pair<int, int> > data) 
-{
-	if (data.empty())
-	{
-		std::cout << "the vector<pair> is empty" <<std::endl;
-		return ;
-	}
-	else
-		std::cout << "***********start printing the data of the vector<pair>" << std::endl;
-	std::vector<std::pair<int, int> >::iterator it = data.begin();
-	while (it != data.end())
-	{
-		std::cout <<"{" << it->first << ", " << it->second << "} ";
-		it++;
-	}
-	std::cout << std::endl;
-	std::cout << "***********end printing the data of the vector<pair>" << std::endl;
-}
-
-//this one should be removed
-///
-///
-///
-///
-void printVector(std::vector<int> data) 
-{
-	if (data.empty())
-	{
-		std::cout << "the vector is empty" <<std::endl;
-		return ;
-	}
-	else
-		std::cout << "***********start printing the data of the vector" << std::endl;
-	std::vector<int>::iterator it = data.begin();
+	std::vector<int>::const_iterator it = data.begin();
+	std::cout << str ;
 	while (it != data.end())
 	{
 		std::cout << *it << " ";
 		it++;
 	}
 	std::cout << std::endl;
-	std::cout << "***********end printing the data of the vector" << std::endl;
 }
 
-//this one should be removed
-///
-///
-///
-///
-void printDeque(std::deque<int> data) 
+void PmergeMe::printDeque(const std::string &str, const std::deque<int> &data)  const
 {
-	if (data.empty())
-	{
-		std::cout << "the deque is empty" <<std::endl;
-		return ;
-	}
-	else
-		std::cout << "***********start printing the data of the deque" << std::endl;
-	std::deque<int>::iterator it = data.begin();
+	std::deque<int>::const_iterator it = data.begin();
+	std::cout << str ;
 	while (it != data.end())
 	{
 		std::cout << *it << " ";
 		it++;
 	}
 	std::cout << std::endl;
-	std::cout << "***********end printing the data of the deque" << std::endl;
+}
+
+double getTimeNow()
+{
+	struct timeval t;
+
+    gettimeofday(&t, NULL);
+    return(static_cast<double> (t.tv_sec) + static_cast<double>(t.tv_usec / 1000000.00));
 }
 
 bool	PmergeMe::parseData(const std::string &str)
 {
+	double startVectorTime;
+	double endVectorTime;
+	double startDequeTime;
+	double endDequeTime;
+
 	if (str.length() == 0)
 	{
 		std::cerr << "Error "<< std::endl << "The data you entered not accepted" << std::endl;
@@ -158,11 +98,18 @@ bool	PmergeMe::parseData(const std::string &str)
 		fillDataQue(str, dataQueue);
 		fillDataToContainer<std::vector<int> >(dataQueue, dataVector);
 		fillDataToContainer<std::deque<int> >(dataQueue, dataDeque);
-		// printVector(this->dataVector);
+		printVector("Befor [Vector]:", this->dataVector);
+		startVectorTime = getTimeNow();
 		sortVector();
+		endVectorTime = (getTimeNow() - startVectorTime) * 1000000.00;
+		printVector("After [Vector]:", this->dataVector);
+		printDeque("Befor [Deque]:", this->dataDeque);
+		startDequeTime = getTimeNow();
 		sortDeque();
-		printDeque(this->dataDeque);
-		printVector(this->dataVector);
+		endDequeTime = (getTimeNow() - startDequeTime) * 1000000.00;
+		printDeque("After [Deque]:", this->dataDeque);
+		std::cout << "Time to process a range of "<< this->dataVector.size() <<" elements with std::[Vector] : " << endVectorTime << std::endl;
+		std::cout << "Time to process a range of "<< this->dataDeque.size() <<" elements with std::[Deque] : " << endDequeTime << std::endl;
 	}
 	catch (std::exception &e)
 	{
@@ -244,12 +191,14 @@ void PmergeMe::sortVector()
 
 	sortVectorByPairFirst(pairVector);
 	mainPendChain(mainChain, pendChain, pairVector);
-	// printVector(this->dataVector);//i should remove this one
+	printVector("main chain",mainChain);
+	printVector("pend chain",pendChain);
 	mergeMainPendChain(mainChain, pendChain);
+	printVector("main chain",mainChain);
+	printVector("pend chain",pendChain);
 	pairVector.clear();
 	mainChain.clear();
 	pendChain.clear();
-	// printVector(this->dataVector);//i should remove this one
 }
 
 void PmergeMe::makePairs(const std::vector<int> &vect, std::vector<std::pair<int, int> > &obj)
@@ -337,8 +286,9 @@ bool comp(int a, int value)
 void PmergeMe::mergeMainPendChain(std::vector<int> &mainChain, std::vector<int> &pendChain)
 {
 	int i = std::distance(pendChain.begin(), pendChain.end()) / 2;
-	int j = i;
+	int j = i + 1;
 	std::vector<int>::iterator it;
+	std::vector<int>::iterator prevIt;
 	std::vector<int>::iterator lower;
 
 	it = pendChain.begin();
@@ -346,12 +296,18 @@ void PmergeMe::mergeMainPendChain(std::vector<int> &mainChain, std::vector<int> 
 	this->dataVector.insert(this->dataVector.begin(), mainChain.begin(), mainChain.end());
 	while (it != pendChain.end() && i >= 0 )
 	{
-		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), *(it + 1), comp);
-		this->dataVector.insert(lower, *(it + 1));
-		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), *(it), comp);
-		this->dataVector.insert(lower, *it);
-		it += 2;
-		i -= 2;
+		prevIt = it;
+		if (i - 2 >= 0)
+		{
+			lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), *(it + 1), comp);
+			this->dataVector.insert(lower, *(it + 1));
+			it++;
+			i--;
+		}
+		lower = std::lower_bound(this->dataVector.begin(), this->dataVector.end(), *prevIt, comp);
+		this->dataVector.insert(lower, *prevIt);
+		it++;
+		i--;
 	}
 	if (this->_lastElem != -1)
 	{
@@ -369,7 +325,7 @@ void PmergeMe::mergeMainPendChain(std::vector<int> &mainChain, std::vector<int> 
 
 }
 /************************* End member functions that uses Vector*******************************/
-/************************* Start member functions that uses List*****************************/
+/************************* Start member functions that uses Deque*****************************/
 void PmergeMe::sortDeque()
 {
 	std::deque<std::pair<int, int> > pairDeque;
@@ -387,11 +343,10 @@ void PmergeMe::sortDeque()
 
 	sortDequeByPairFirst(pairDeque);
 	mainPendChain(mainChain, pendChain, pairDeque);
-	mergeMainPendChain(mainChain, pendChain);
 	pairDeque.clear();
+	mergeMainPendChain(mainChain, pendChain);
 	mainChain.clear();
 	pendChain.clear();
-	// printDeque(this->dataDeque);//i should remove this one
 }
 
 void PmergeMe::makePairs(const std::deque<int> &vect, std::deque<std::pair<int, int> > &obj)
@@ -474,8 +429,9 @@ void PmergeMe::_merge(std::deque<std::pair<int, int> > &obj, int start, int mid,
 void PmergeMe::mergeMainPendChain(std::deque<int> &mainChain, std::deque<int> &pendChain)
 {
 	int i = std::distance(pendChain.begin(), pendChain.end()) / 2;
-	int j = i;
+	int j = i + 1;
 	std::deque<int>::iterator it;
+	std::deque<int>::iterator prevIt;
 	std::deque<int>::iterator lower;
 
 	it = pendChain.begin();
@@ -483,12 +439,18 @@ void PmergeMe::mergeMainPendChain(std::deque<int> &mainChain, std::deque<int> &p
 	this->dataDeque.insert(this->dataDeque.begin(), mainChain.begin(), mainChain.end());
 	while (it != pendChain.end() && i >= 0 )
 	{
-		lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), *(it + 1), comp);
-		this->dataDeque.insert(lower, *(it + 1));
-		lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), *(it), comp);
-		this->dataDeque.insert(lower, *it);
-		it += 2;
-		i -= 2;
+		prevIt = it;
+		if (i - 2 >= 0)
+		{
+			lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), *(it + 1), comp);
+			this->dataDeque.insert(lower, *(it + 1));
+			it++;
+			i--;
+		}
+		lower = std::lower_bound(this->dataDeque.begin(), this->dataDeque.end(), *prevIt, comp);
+		this->dataDeque.insert(lower, *prevIt);
+		it++;
+		i--;
 	}
 	if (this->_lastElem != -1)
 	{
